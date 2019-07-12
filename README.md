@@ -1,4 +1,4 @@
-# judo-customer-information
+# dojo-customer-information
 
 ## Project setup
 ```
