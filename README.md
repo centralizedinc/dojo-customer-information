@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # dojo-customer-information
 
 ## Project setup
@@ -27,3 +28,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# dojo-customer-information
+>>>>>>> f059f575afc860d1dd84cfce3eef22b563f925fe
