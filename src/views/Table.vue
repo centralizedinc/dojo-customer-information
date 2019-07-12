@@ -5,7 +5,7 @@
         <template
           v-for="col in ['name', 'age', 'address']"
           :slot="col"
-          slot-scope="text, record, index"
+          slot-scope="text, record"
         >
           <div :key="col">
             <a-input
@@ -17,7 +17,7 @@
             <template v-else>{{text}}</template>
           </div>
         </template>
-        <template slot="operation" slot-scope="text, record, index">
+        <template slot="operation" slot-scope="text, record">
           <div class="editable-row-operations">
             <span v-if="record.editable">
               <a @click="() => save(record.key)">Save</a>

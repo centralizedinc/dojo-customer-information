@@ -2,7 +2,7 @@
   <div class="view">
     <a-card>
       <a-list itemLayout="horizontal" :dataSource="data">
-        <a-list-item slot="renderItem" slot-scope="item, index">
+        <a-list-item slot="renderItem" slot-scope="item">
           <a-list-item-meta
             description="Ant Design, a design language for background applications, is refined by Ant UED Team"
           >
