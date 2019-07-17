@@ -15,18 +15,18 @@
           ]"
           />
             </a-form-item>-->
-            <a-form-item label="First Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input
+            <a-form-item label="Fullnameame" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input v-model="customer.name" placeholder="Firstname, Middlename & Fullname"
                 v-decorator="[
-            'firstname',
+            'fullname',
             {
-              rules: [{ required: true, message: 'First name is required!' }],
+              rules: [{ required: true, message: 'Fullname is required!' }],
             }
           ]"
               />
             </a-form-item>
-            <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input
+            <!-- <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input v-model="customer.middle_name"
                 v-decorator="[
             'middlename',
             {
@@ -36,7 +36,7 @@
               />
             </a-form-item>
             <a-form-item label="Last Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input
+              <a-input v-model="customer.last_name"
                 v-decorator="[
             'lastname',
             {
@@ -44,9 +44,9 @@
             }
           ]"
               />
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item label="Address" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input
+              <a-input v-model="customer.address"
                 v-decorator="[
             'address',
             {
@@ -61,7 +61,7 @@
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
             >
-              <a-input
+              <a-input v-model="customer.phone"
                 v-decorator="[
           'phone',
           {
@@ -83,8 +83,21 @@
                 </a-select>
               </a-input>
             </a-form-item>
+            <a-form-item label="Type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-select v-model="customer.type"
+                v-decorator="[
+          'type',
+          {rules: [{ required: true, message: 'Please select your type!' }]}
+        ]"
+                placeholder="Please select type"
+                @change="handleSelectChange"
+              >
+                <a-select-option value="dojo">Dojo</a-select-option>
+                <a-select-option value="boxing">Boxing</a-select-option>
+              </a-select>
+            </a-form-item>
             <a-form-item label="Gender" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select
+              <a-select v-model="customer.gender"
                 v-decorator="[
           'gender',
           {rules: [{ required: true, message: 'Please select your gender!' }]}
@@ -97,7 +110,7 @@
               </a-select>
             </a-form-item>
             <a-form-item label="Status" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select
+              <a-select v-model="customer.status"
                 v-decorator="[
           'status',
           {rules: [{ required: true, message: 'Please select your status!' }]}
@@ -115,7 +128,7 @@
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
             >
-              <a-input
+              <a-input v-model="customer.email"
                 v-decorator="[
           'email',
           {
@@ -129,12 +142,12 @@
               />
             </a-form-item>
             <a-form-item label="Birthday" :label-col="{ span: 5 }" :wrapper-col="{ span: 8 }">
-              <a-date-picker
+              <a-date-picker v-model="customer.birthday"
                 v-decorator="['date-picker', {rules: [{ required: true, message: 'Birthday is required!' }]}]"
               />
             </a-form-item>
             <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-              <a-button type="primary" html-type="submit">Submit</a-button>
+              <a-button type="primary" @click="Submit">Submit</a-button>
             </a-form-item>
           </a-form>
         </a-card>
@@ -148,6 +161,7 @@
 export default {
   data() {
     return {
+      customer:{},
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -247,6 +261,11 @@ export default {
         };
         console.log("Received values of form: ", values);
       });
+    },
+    Submit(){
+      this.$store.commit('ADD_CUSTOMER', this.customer)
+      console.log("Customer Details: " + JSON.stringify(this.customer));
+      this.$router.push("/");
     }
   }
 };

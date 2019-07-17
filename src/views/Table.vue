@@ -5,7 +5,7 @@
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
-            <a-button class="editable-add-btn" @click="handleAdd">Add Customer</a-button>
+            <a-button class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
           </div>
           <br />
           <a-table :dataSource="data" :columns="columns">
@@ -80,45 +80,45 @@
 </template>
 
 <script>
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    type: "Dojo",
-    remain: "1/10",
-    valid: "July 12, 2019",
-    login: "10:00AM"
-  },
-  {
-    key: "2",
-    name: "Joe Black",
-    type: "Boxing",
-    remain: "1/10",
-    valid: "July 1, 2019",
-    login: "8:00AM"
-  },
-  {
-    key: "3",
-    name: "Jim Green",
-    type: "Dojo",
-    remain: "5/10",
-    valid: "July 3, 2019",
-    login: "9:00AM"
-  },
-  {
-    key: "4",
-    name: "Elsa Wick",
-    type: "Boxing",
-    remain: "3/10",
-    valid: "July 9, 2019",
-    login: "11:00AM"
-  }
-];
+// const data = [
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     type: "Dojo",
+//     remain: "1/10",
+//     valid: "July 12, 2019",
+//     login: "10:00AM"
+//   },
+//   {
+//     key: "2",
+//     name: "Joe Black",
+//     type: "Boxing",
+//     remain: "1/10",
+//     valid: "July 1, 2019",
+//     login: "8:00AM"
+//   },
+//   {
+//     key: "3",
+//     name: "Jim Green",
+//     type: "Dojo",
+//     remain: "5/10",
+//     valid: "July 3, 2019",
+//     login: "9:00AM"
+//   },
+//   {
+//     key: "4",
+//     name: "Elsa Wick",
+//     type: "Boxing",
+//     remain: "3/10",
+//     valid: "July 9, 2019",
+//     login: "11:00AM"
+//   }
+// ];
 
 export default {
   data() {
     return {
-      data,
+      data:[],
       searchText: "",
       searchInput: null,
       columns: [
@@ -235,7 +235,13 @@ export default {
       ]
     };
   },
+  created(){
+    this.init()
+  },
   methods: {
+    init(){
+      this.data = this.$store.state.customers
+    },
     handleSearch(selectedKeys, confirm) {
       confirm();
       this.searchText = selectedKeys[0];
