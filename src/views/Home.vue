@@ -1,19 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <router-view></router-view>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <router-view></router-view> -->
+    <!-- <HelloWorld msg="Welcome to Your Dojo Customer Information System"/> -->
+    <Table msg="Welcome to Your Dojo Customer Information System" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import Table from "@/views/Table.vue";
 
 export default {
-  name: 'home',
+  // name: 'home',
+  // components: {
+  //   HelloWorld
+  // }
+  name: "table",
   components: {
-    HelloWorld
+    Table
   }
-}
+};
 </script>
