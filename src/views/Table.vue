@@ -1,7 +1,7 @@
 <template>
   <div class="table">
     <a-layout>
-      <a-layout-header></a-layout-header>
+      <a-layout-header> DOJO </a-layout-header>
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
@@ -71,6 +71,13 @@
                 </span>
               </div>
             </template>
+            <template slot="view">
+              <div>
+                <span>
+                  <a @click="handleView()">View</a>
+                </span>
+              </div>
+            </template>
           </a-table>
         </a-card>
       </a-layout-content>
@@ -118,12 +125,12 @@
 export default {
   data() {
     return {
-      data:[],
+      data: [],
       searchText: "",
       searchInput: null,
       columns: [
         {
-          title: "Name",
+          title: "Fullname",
           dataIndex: "name",
           key: "name",
           scopedSlots: {
@@ -220,8 +227,23 @@ export default {
         {
           title: "Operations",
           dataIndex: "operation",
-          key: "opeartion",
+          key: "operation",
           scopedSlots: { customRender: "operation" },
+          onFilter: (value, record) =>
+            record.address.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+        {
+          title: "Details",
+          dataIndex: "view",
+          key: "view",
+          scopedSlots: { customRender: "view" },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
           onFilterDropdownVisibleChange: visible => {
@@ -235,12 +257,12 @@ export default {
       ]
     };
   },
-  created(){
-    this.init()
+  created() {
+    this.init();
   },
   methods: {
-    init(){
-      this.data = this.$store.state.customers
+    init() {
+      this.data = this.$store.state.customers;
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -289,6 +311,9 @@ export default {
         delete target.editable;
         this.data = newData;
       }
+    },
+    handleView() {
+      this.$router.push("/view");
     },
     handleAdd() {
       this.$router.push("/register");

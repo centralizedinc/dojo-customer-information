@@ -6,11 +6,7 @@
         <a-layout>
           <a-card title="DOJO Customer Information">
             <a-table :columns="columns" :dataSource="data" bordered>
-              <template
-                v-for="col in ['name', 'type', 'remain', 'valid', 'login']"
-                :slot="col"
-                slot-scope="text, record"
-              >
+              <template v-for="col in ['remain', 'valid']" :slot="col" slot-scope="text, record">
                 <div :key="col">
                   <a-input
                     v-if="record.editable"

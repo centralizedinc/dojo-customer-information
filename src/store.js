@@ -32,7 +32,7 @@ export default new Vuex.Store({
       },
       {
         key: "4",
-        name: "Elsa Wick",
+        name: "Mr. Bean Triallanes Duterte",
         type: "Boxing",
         remain: "3/10",
         valid: "July 9, 2019",
