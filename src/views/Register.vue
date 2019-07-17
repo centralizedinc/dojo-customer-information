@@ -74,11 +74,11 @@
                   slot="addonBefore"
                   v-decorator="[
             'prefix',
-            { initialValue: '86' }
+            { initialValue: '63' }
           ]"
                   style="width: 70px"
                 >
-                  <a-select-option value="86">+86</a-select-option>
+                  <a-select-option value="63">+63</a-select-option>
                   <a-select-option value="87">+87</a-select-option>
                 </a-select>
               </a-input>
@@ -92,8 +92,8 @@
                 placeholder="Please select gender"
                 @change="handleSelectChange"
               >
-                <a-select-option value="male">male</a-select-option>
-                <a-select-option value="female">female</a-select-option>
+                <a-select-option value="male">Male</a-select-option>
+                <a-select-option value="female">Female</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Status" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
@@ -128,16 +128,10 @@
         ]"
               />
             </a-form-item>
-            <a-form-item label="Birthday" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+            <a-form-item label="Birthday" :label-col="{ span: 5 }" :wrapper-col="{ span: 8 }">
               <a-date-picker
                 v-decorator="['date-picker', {rules: [{ required: true, message: 'Birthday is required!' }]}]"
               />
-            </a-form-item>
-            <a-form-item v-bind="tailFormItemLayout">
-              <a-checkbox v-decorator="['agreement', {valuePropName: 'checked'}]">
-                I have read the
-                <a href>agreement</a>
-              </a-checkbox>
             </a-form-item>
             <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
               <a-button type="primary" html-type="submit">Submit</a-button>
