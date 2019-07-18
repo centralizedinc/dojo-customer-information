@@ -5,10 +5,10 @@
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
-            <a-button class="editable-add-btn" @click="handleAdd">Add Customer</a-button>
+            <a-button :size="size" class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
           </div>
           <br />
-          <a-table :dataSource="data" :columns="columns">
+          <a-table :dataSource="data" :columns="columns" bordered size="middle">
             <div
               slot="filterDropdown"
               slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
@@ -58,7 +58,7 @@
             </template>
             <template slot="operation" slot-scope="text, record">
               <div class="editable-row-operations">
-                <span v-if="record.editable">
+                <!-- <span v-if="record.editable">
                   <a-popconfirm title="Sure to Login?" @confirm="() => save(record.key)">
                     <a>Save</a>
                   </a-popconfirm>
@@ -68,6 +68,17 @@
                 </span>
                 <span v-else>
                   <a @click="() => edit(record.key)">Login</a>
+                </span>-->
+
+                <a-popconfirm title="Sure to Login?" @confirm="save(record.key)">
+                  <a>Login</a>
+                </a-popconfirm>
+              </div>
+            </template>
+            <template slot="view" slot-scope="text, record">
+              <div>
+                <span>
+                  <a @click="handleView(record)">View</a>
                 </span>
               </div>
             </template>
@@ -80,50 +91,51 @@
 </template>
 
 <script>
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    type: "Dojo",
-    remain: "1/10",
-    valid: "July 12, 2019",
-    login: "10:00AM"
-  },
-  {
-    key: "2",
-    name: "Joe Black",
-    type: "Boxing",
-    remain: "1/10",
-    valid: "July 1, 2019",
-    login: "8:00AM"
-  },
-  {
-    key: "3",
-    name: "Jim Green",
-    type: "Dojo",
-    remain: "5/10",
-    valid: "July 3, 2019",
-    login: "9:00AM"
-  },
-  {
-    key: "4",
-    name: "Elsa Wick",
-    type: "Boxing",
-    remain: "3/10",
-    valid: "July 9, 2019",
-    login: "11:00AM"
-  }
-];
+// const data = [
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     type: "Dojo",
+//     remain: "1/10",
+//     valid: "July 12, 2019",
+//     login: "10:00AM"
+//   },
+//   {
+//     key: "2",
+//     name: "Joe Black",
+//     type: "Boxing",
+//     remain: "1/10",
+//     valid: "July 1, 2019",
+//     login: "8:00AM"
+//   },
+//   {
+//     key: "3",
+//     name: "Jim Green",
+//     type: "Dojo",
+//     remain: "5/10",
+//     valid: "July 3, 2019",
+//     login: "9:00AM"
+//   },
+//   {
+//     key: "4",
+//     name: "Elsa Wick",
+//     type: "Boxing",
+//     remain: "3/10",
+//     valid: "July 9, 2019",
+//     login: "11:00AM"
+//   }
+// ];
 
 export default {
   data() {
     return {
-      data,
+      size: "large",
+      data: [],
       searchText: "",
       searchInput: null,
       columns: [
         {
-          title: "Name",
+          title: "Fullname",
           dataIndex: "name",
           key: "name",
           scopedSlots: {
@@ -161,14 +173,30 @@ export default {
           }
         },
         {
-          title: "Remaining Session",
-          dataIndex: "remain",
+          title: "Session",
+          children: [
+            {
+              title: "Remaining Session",
+              dataIndex: "remaining_session",
+              key: "remaining_session",
+              scopedSlots: {
+                filterDropdown: "filterDropdown",
+                filterIcon: "filterIcon",
+                customRender: "customRender"
+              }
+            },
+            {
+              title: "Total Session",
+              dataIndex: "total_session",
+              key: "total_session",
+              scopedSlots: {
+                filterDropdown: "filterDropdown",
+                filterIcon: "filterIcon",
+                customRender: "customRender"
+              }
+            }
+          ],
           key: "remain",
-          scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
-            customRender: "customRender"
-          },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
           onFilterDropdownVisibleChange: visible => {
@@ -182,6 +210,7 @@ export default {
         {
           title: "Valid Until",
           dataIndex: "valid",
+          className: "Valid",
           key: "valid",
           scopedSlots: {
             filterDropdown: "filterDropdown",
@@ -201,6 +230,7 @@ export default {
         {
           title: "Login Time",
           dataIndex: "login",
+          className: "login",
           key: "login",
           scopedSlots: {
             filterDropdown: "filterDropdown",
@@ -220,8 +250,24 @@ export default {
         {
           title: "Operations",
           dataIndex: "operation",
-          key: "opeartion",
+          className: "operation",
+          key: "operation",
           scopedSlots: { customRender: "operation" },
+          onFilter: (value, record) =>
+            record.address.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+        {
+          title: "Details",
+          dataIndex: "view",
+          key: "view",
+          scopedSlots: { customRender: "view" },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
           onFilterDropdownVisibleChange: visible => {
@@ -235,7 +281,13 @@ export default {
       ]
     };
   },
+  created() {
+    this.init();
+  },
   methods: {
+    init() {
+      this.data = this.$store.state.customers;
+    },
     handleSearch(selectedKeys, confirm) {
       confirm();
       this.searchText = selectedKeys[0];
@@ -264,13 +316,13 @@ export default {
       }
     },
     save(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        delete target.editable;
-        this.data = newData;
-        this.cacheData = newData.map(item => ({ ...item }));
-      }
+      // const newData = [...this.data];
+      // const target = newData.filter(item => key === item.key)[0];
+      // if (target) {
+      //   delete target.editable;
+      //   this.data = newData;
+      //   this.cacheData = newData.map(item => ({ ...item }));
+      // }
     },
     cancel(key) {
       const newData = [...this.data];
@@ -283,6 +335,11 @@ export default {
         delete target.editable;
         this.data = newData;
       }
+    },
+    handleView(index) {
+      // alert(JSON.stringify(index))
+      this.$store.commit("SELECT_CUSTOMER", index);
+      this.$router.push("/view");
     },
     handleAdd() {
       this.$router.push("/register");
@@ -314,5 +371,10 @@ export default {
 
 .editable-row-operations a {
   margin-right: 8px;
+}
+
+th.columns,
+td.columns {
+  text-align: center !important;
 }
 </style>
