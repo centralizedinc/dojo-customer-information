@@ -210,13 +210,13 @@ export default {
   margin-top: 24px;
 }
 #components-form-demo-vuex .ant-layout-content {
-  background: rgb(156, 181, 235);
-  color: rgb(81, 219, 243);
+  background: rgb(235, 204, 156);
+  color: rgb(243, 81, 94);
   min-height: 100px;
   height: 400px !important;
 }
 #components-form-demo-vuex .ant-layout-footer {
-  line-height: 5;
-  background: #059185;
+  line-height: 60;
+  background: rgba(34, 8, 0, 0.2);
 }
 </style>
