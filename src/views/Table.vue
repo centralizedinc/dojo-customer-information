@@ -96,14 +96,14 @@
                 >
                   <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
                   <p :style="pStyle">Personal</p>-->
-                  <p :style="pStyle">Fullname: {{customer.name}}</p>
-                  <p :style="pStyle">Address:</p>
-                  <p :style="pStyle">Mobile Number:</p>
-                  <p :style="pStyle">Type:</p>
-                  <p :style="pStyle">Gender:</p>
-                  <p :style="pStyle">Status:</p>
-                  <p :style="pStyle">Email Address:</p>
-                  <p :style="pStyle">Birthday:</p>
+                  <p :style="[pStyle, pStyle2]">Fullname:  {{customer.name}}</p>
+                  <p :style="pStyle">Address:  {{customer.address}}</p>
+                  <p :style="pStyle">Mobile Number:  {{customer.phone}}</p>
+                  <p :style="pStyle">Type:  {{customer.type}}</p>
+                  <p :style="pStyle">Gender:  {{customer.gender}}</p>
+                  <p :style="pStyle">Status:  {{customer.status}}</p>
+                  <p :style="pStyle">Email Address:  {{customer.email}}</p>
+                  <p :style="pStyle">Birthday:  {{customer.birthday}}</p>
                 </a-drawer>
               </div>
             </template>
