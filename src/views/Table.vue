@@ -5,7 +5,13 @@
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
-            <a-button :size="size" class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
+            <a-button
+              :size="size"
+              class="editable-add-btn"
+              type="primary"
+              ghost
+              @click="handleAdd"
+            >Add Customer</a-button>
           </div>
           <br />
           <a-table :dataSource="data" :columns="columns" bordered size="middle">
@@ -78,8 +84,27 @@
             <template slot="view" slot-scope="text, record">
               <div>
                 <span>
-                  <a @click="handleView(record)">View</a>
+                  <a @click="showDrawer(record)">View</a>
                 </span>
+                <a-drawer
+                  width="640"
+                  title="Customer Details"
+                  placement="right"
+                  :closable="false"
+                  @close="onClose"
+                  :visible="visible"
+                >
+                  <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
+                  <p :style="pStyle">Personal</p>-->
+                  <p :style="pStyle">Fullname: {{customer.name}}</p>
+                  <p :style="pStyle">Address:</p>
+                  <p :style="pStyle">Mobile Number:</p>
+                  <p :style="pStyle">Type:</p>
+                  <p :style="pStyle">Gender:</p>
+                  <p :style="pStyle">Status:</p>
+                  <p :style="pStyle">Email Address:</p>
+                  <p :style="pStyle">Birthday:</p>
+                </a-drawer>
               </div>
             </template>
           </a-table>
@@ -129,10 +154,22 @@
 export default {
   data() {
     return {
+      customer: {},
+      visible: false,
       size: "large",
       data: [],
       searchText: "",
       searchInput: null,
+      pStyle: {
+        fontSize: "16px",
+        color: "rgba(0,0,0,0.85)",
+        lineHeight: "24px",
+        display: "block",
+        marginBottom: "16px"
+      },
+      pStyle2: {
+        marginBottom: "24px"
+      },
       columns: [
         {
           title: "Fullname",
@@ -158,8 +195,6 @@ export default {
           dataIndex: "type",
           key: "type",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -180,8 +215,6 @@ export default {
               dataIndex: "remaining_session",
               key: "remaining_session",
               scopedSlots: {
-                filterDropdown: "filterDropdown",
-                filterIcon: "filterIcon",
                 customRender: "customRender"
               }
             },
@@ -190,8 +223,6 @@ export default {
               dataIndex: "total_session",
               key: "total_session",
               scopedSlots: {
-                filterDropdown: "filterDropdown",
-                filterIcon: "filterIcon",
                 customRender: "customRender"
               }
             }
@@ -210,11 +241,8 @@ export default {
         {
           title: "Valid Until",
           dataIndex: "valid",
-          className: "Valid",
           key: "valid",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -230,11 +258,8 @@ export default {
         {
           title: "Login Time",
           dataIndex: "login",
-          className: "login",
           key: "login",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -250,7 +275,6 @@ export default {
         {
           title: "Operations",
           dataIndex: "operation",
-          className: "operation",
           key: "operation",
           scopedSlots: { customRender: "operation" },
           onFilter: (value, record) =>
@@ -314,6 +338,14 @@ export default {
         target.editable = true;
         this.data = newData;
       }
+    },
+    showDrawer(record) {
+      //  this.$store.commit("SELECT_CUSTOMER", record);
+      this.customer = record;
+      this.visible = true;
+    },
+    onClose() {
+      this.visible = false;
     },
     save(key) {
       // const newData = [...this.data];

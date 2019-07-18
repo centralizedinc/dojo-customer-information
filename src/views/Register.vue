@@ -194,6 +194,7 @@ export default {
     Submit() {
       this.$store.commit("ADD_CUSTOMER", this.customer);
       console.log("Customer Details: " + JSON.stringify(this.customer));
+      this.$message.success('Successful Add Customer');
       this.$router.push("/");
     },
     Cancel() {
