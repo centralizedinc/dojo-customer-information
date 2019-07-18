@@ -86,6 +86,7 @@
                 <span>
                   <a @click="showDrawer(record)">View</a>
                 </span>
+                <!-- VIEW -->
                 <a-drawer
                   width="640"
                   title="Customer Details"
@@ -94,16 +95,39 @@
                   @close="onClose"
                   :visible="visible"
                 >
-                  <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
-                  <p :style="pStyle">Personal</p>-->
-                  <p :style="[pStyle, pStyle2]">Fullname:  {{customer.name}}</p>
-                  <p :style="pStyle">Address:  {{customer.address}}</p>
-                  <p :style="pStyle">Mobile Number:  {{customer.phone}}</p>
-                  <p :style="pStyle">Type:  {{customer.type}}</p>
-                  <p :style="pStyle">Gender:  {{customer.gender}}</p>
-                  <p :style="pStyle">Status:  {{customer.status}}</p>
-                  <p :style="pStyle">Email Address:  {{customer.email}}</p>
-                  <p :style="pStyle">Birthday:  {{customer.birthday}}</p>
+                  <a-card class="test03">
+                    <!-- <a-col :span="4" :offset="11"> -->
+                    <a-col :span="4">
+                      <a-avatar
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8YTbzfa8-0pOEGrEcZhXCLrbHE0BgNwDMM90vw1MzhTUXM5Kc"
+                        shape="circle"
+                        class="avatar"
+                      />
+                    </a-col>
+                    <!-- <a-row>
+                    <a-col :span="0"></a-col>
+                    <img :src="dojo" width="300" height="200"/>
+                    </a-row><br>-->
+                    <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
+                    <p :style="pStyle">Personal</p>-->
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <p :style="[pStyle, pStyle2]">Fullname: {{customer.name}}</p>
+                    <p :style="pStyle">Address: {{customer.address}}</p>
+                    <p :style="pStyle">Mobile Number: {{customer.phone}}</p>
+                    <p :style="pStyle">Type: {{customer.type}}</p>
+                    <p :style="pStyle">Gender: {{customer.gender}}</p>
+                    <p :style="pStyle">Status: {{customer.status}}</p>
+                    <p :style="pStyle">Email Address: {{customer.email}}</p>
+                    <p :style="pStyle">Birthday: {{customer.birthday}}</p>
+                  </a-card>
+                  <!-- <img :src="dojo" width="300" height="200"/> -->
                 </a-drawer>
               </div>
             </template>
@@ -150,10 +174,11 @@
 //     login: "11:00AM"
 //   }
 // ];
-
+import dojo from "../assets/dojo.png";
 export default {
   data() {
     return {
+      dojo: dojo,
       customer: {},
       visible: false,
       size: "large",
@@ -408,5 +433,14 @@ export default {
 th.columns,
 td.columns {
   text-align: center !important;
+}
+.avatar {
+  height: 150px !important;
+  width: 170px !important;
+  margin: 0px !important;
+}
+.test03 {
+  margin: 0px !important;
+  /* background: rgb(15, 15, 16) !important; */
 }
 </style>
