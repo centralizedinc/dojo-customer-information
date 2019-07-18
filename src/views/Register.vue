@@ -5,16 +5,6 @@
       <a-layout-content>
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
-            <!-- <a-form-item label="Username" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-          <a-input
-            v-decorator="[
-            'username',
-            {
-              rules: [{ required: true, message: 'Username is required!' }],
-            }
-          ]"
-          />
-            </a-form-item>-->
             <a-form-item label="Fullname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input placeholder="Firstname, Middlename & Lastname" v-model="customer.name" />
             </a-form-item>

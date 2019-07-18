@@ -1,14 +1,14 @@
 <template>
   <div class="table">
     <a-layout>
-      <a-layout-header> DOJO </a-layout-header>
+      <a-layout-header>DOJO</a-layout-header>
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
             <a-button class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
           </div>
           <br />
-          <a-table :dataSource="data" :columns="columns">
+          <a-table :dataSource="data" :columns="columns" bordered size="middle">
             <div
               slot="filterDropdown"
               slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
@@ -58,7 +58,7 @@
             </template>
             <template slot="operation" slot-scope="text, record">
               <div class="editable-row-operations">
-                <span v-if="record.editable">
+                <!-- <span v-if="record.editable">
                   <a-popconfirm title="Sure to Login?" @confirm="() => save(record.key)">
                     <a>Save</a>
                   </a-popconfirm>
@@ -68,13 +68,17 @@
                 </span>
                 <span v-else>
                   <a @click="() => edit(record.key)">Login</a>
-                </span>
+                </span>-->
+
+                <a-popconfirm title="Sure to Login?" @confirm="save(record.key)">
+                  <a>Login</a>
+                </a-popconfirm>
               </div>
             </template>
-            <template slot="view">
+            <template slot="view" slot-scope="text, record">
               <div>
                 <span>
-                  <a @click="handleView()">View</a>
+                  <a @click="handleView(record)">View</a>
                 </span>
               </div>
             </template>
@@ -168,14 +172,30 @@ export default {
           }
         },
         {
-          title: "Remaining Session",
-          dataIndex: "remain",
+          title: "Session",
+          children: [
+            {
+              title: "Remaining Session",
+              dataIndex: "remaining_session",
+              key: "remaining_session",
+              scopedSlots: {
+                filterDropdown: "filterDropdown",
+                filterIcon: "filterIcon",
+                customRender: "customRender"
+              }
+            },
+            {
+              title: "Total Session",
+              dataIndex: "total_session",
+              key: "total_session",
+              scopedSlots: {
+                filterDropdown: "filterDropdown",
+                filterIcon: "filterIcon",
+                customRender: "customRender"
+              }
+            }
+          ],
           key: "remain",
-          scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
-            customRender: "customRender"
-          },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
           onFilterDropdownVisibleChange: visible => {
@@ -189,6 +209,7 @@ export default {
         {
           title: "Valid Until",
           dataIndex: "valid",
+          className: "Valid",
           key: "valid",
           scopedSlots: {
             filterDropdown: "filterDropdown",
@@ -208,6 +229,7 @@ export default {
         {
           title: "Login Time",
           dataIndex: "login",
+          className: "login",
           key: "login",
           scopedSlots: {
             filterDropdown: "filterDropdown",
@@ -227,6 +249,7 @@ export default {
         {
           title: "Operations",
           dataIndex: "operation",
+          className: "operation",
           key: "operation",
           scopedSlots: { customRender: "operation" },
           onFilter: (value, record) =>
@@ -292,13 +315,13 @@ export default {
       }
     },
     save(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        delete target.editable;
-        this.data = newData;
-        this.cacheData = newData.map(item => ({ ...item }));
-      }
+      // const newData = [...this.data];
+      // const target = newData.filter(item => key === item.key)[0];
+      // if (target) {
+      //   delete target.editable;
+      //   this.data = newData;
+      //   this.cacheData = newData.map(item => ({ ...item }));
+      // }
     },
     cancel(key) {
       const newData = [...this.data];
@@ -312,7 +335,9 @@ export default {
         this.data = newData;
       }
     },
-    handleView() {
+    handleView(index) {
+      // alert(JSON.stringify(index))
+      this.$store.commit("SELECT_CUSTOMER", index);
       this.$router.push("/view");
     },
     handleAdd() {
@@ -345,5 +370,10 @@ export default {
 
 .editable-row-operations a {
   margin-right: 8px;
+}
+
+th.columns,
+td.columns {
+  text-align: center !important;
 }
 </style>

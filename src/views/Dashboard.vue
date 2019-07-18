@@ -3,50 +3,38 @@
     <a-layout>
       <a-layout-header></a-layout-header>
       <a-layout-content>
-        <a-layout>
-          <a-card title="DOJO Customer Information">
-            <a-table :columns="columns" :dataSource="data" bordered>
-              <template v-for="col in ['remain', 'valid']" :slot="col" slot-scope="text, record">
-                <div :key="col">
-                  <a-input
-                    v-if="record.editable"
-                    style="margin: -5px 0"
-                    :value="text"
-                    @change="e => handleChange(e.target.value, record.key, col)"
-                  />
-                  <template v-else>{{text}}</template>
-                </div>
-              </template>
-              <template slot="operation" slot-scope="text, record">
-                <div class="editable-row-operations">
-                  <span v-if="record.editable">
-                    <a @click="() => save(record.key)">Save</a>
-                    <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                      <a>Cancel</a>
-                    </a-popconfirm>
-                  </span>
-                  <span v-else>
-                    <a @click="() => edit(record.key)">Edit</a>
-                  </span>
-                </div>
-              </template>
-              <template slot="login" slot-scope="text, record">
-                <div class="editable-row-operations1">
-                  <span v-if="record.editable">
-                    <a @click="() => save(record.key)">Save</a>
-                    <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                      <a>Cancel</a>
-                    </a-popconfirm>
-                  </span>
-                  <span v-else>
-                    <a @click="() => edit(record.key)">Login</a>
-                    <a-popconfirm title="Sure to Login?" @confirm="() => cancel(record.key)"></a-popconfirm>
-                  </span>
-                </div>
-              </template>
-            </a-table>
-          </a-card>
-        </a-layout>
+        <a-card>
+          <a-table :columns="columns" :dataSource="data">
+            <template
+              v-for="col in ['name', 'age', 'address']"
+              :slot="col"
+              slot-scope="text, record"
+            >
+              <div :key="col">
+                <a-input
+                  v-if="record.editable"
+                  style="margin: -5px 0"
+                  :value="text"
+                  @change="e => handleChange(e.target.value, record.key, col)"
+                />
+                <template v-else>{{text}}</template>
+              </div>
+            </template>
+            <template slot="operation" slot-scope="text, record">
+              <div class="editable-row-operations">
+                <span v-if="record.editable">
+                  <a @click="() => save(record.key)">Save</a>
+                  <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
+                    <a>Cancel</a>
+                  </a-popconfirm>
+                </span>
+                <span v-else>
+                  <a @click="() => edit(record.key)">Edit</a>
+                </span>
+              </div>
+            </template>
+          </a-table>
+        </a-card>
       </a-layout-content>
       <a-layout-footer></a-layout-footer>
     </a-layout>
@@ -55,33 +43,22 @@
 <script>
 const columns = [
   {
-    title: "Name",
+    title: "name",
     dataIndex: "name",
     width: "25%",
     scopedSlots: { customRender: "name" }
   },
   {
-    title: "Type",
-    dataIndex: "type",
+    title: "age",
+    dataIndex: "age",
     width: "15%",
-    scopedSlots: { customRender: "type" }
+    scopedSlots: { customRender: "age" }
   },
   {
-    title: "Remaining",
-    dataIndex: "remain",
+    title: "address",
+    dataIndex: "address",
     width: "40%",
-    scopedSlots: { customRender: "remain" }
-  },
-  {
-    title: "Validity",
-    dataIndex: "valid",
-    width: "40%",
-    scopedSlots: { customRender: "valid" }
-  },
-  {
-    title: "Login",
-    dataIndex: "login",
-    scopedSlots: { customRender: "login" }
+    scopedSlots: { customRender: "address" }
   },
   {
     title: "operation",
@@ -90,39 +67,15 @@ const columns = [
   }
 ];
 
-const data = [
-  {
-    key: "1",
-    Name: "John Brown",
-    Type: "Boxing",
-    Remaining: "1/10",
-    Validity: "July 1, 2019",
-    Login: "8:00AM"
-  },
-  {
-    key: "2",
-    Type: "Boxing",
-    Remaining: "3/10",
-    Validity: "July 1, 2019",
-    Login: "9:00AM"
-  },
-  {
-    key: "3",
-    name: "Jim Green",
-    Type: "Boxing",
-    Remaining: "3/10",
-    Validity: "July 1, 2019",
-    Login: "11:00AM"
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    Type: "Dojo",
-    Remaining: "3/10",
-    Validity: "July 1, 2019",
-    Login: "10:00AM"
-  }
-];
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i.toString(),
+    name: `Edrward ${i}`,
+    age: 32,
+    address: `London Park no. ${i}`
+  });
+}
 export default {
   data() {
     this.cacheData = data.map(item => ({ ...item }));
