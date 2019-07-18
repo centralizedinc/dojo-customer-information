@@ -6,7 +6,7 @@
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item label="Fullname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input placeholder="Firstname, Middlename & Lastname" v-model="customer.name" />
+              <a-input placeholder="Please input your Firstname, Middlename & Lastname" v-model="customer.name" />
             </a-form-item>
             <!-- <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.middle_name"
@@ -29,27 +29,10 @@
               />
             </a-form-item>-->
             <a-form-item label="Address" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input v-model="customer.address" />
+              <a-input v-model="customer.address" placeholder="Please input your Address" />
             </a-form-item>
-            <a-form-item
-              v-bind="formItemLayout"
-              label="Phone Number"
-              :label-col="{ span: 5 }"
-              :wrapper-col="{ span: 12 }"
-            >
-              <a-input v-model="customer.phone" style="width: 100%">
-                <a-select
-                  slot="addonBefore"
-                  v-decorator="[
-            'prefix',
-            { initialValue: '63' }
-          ]"
-                  style="width: 70px"
-                >
-                  <a-select-option value="63">+63</a-select-option>
-                  <a-select-option value="87">+87</a-select-option>
-                </a-select>
-              </a-input>
+            <a-form-item label="Phone number" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input v-model="customer.phone" placeholder="Please input your Phone Number" />
             </a-form-item>
             <a-form-item label="Type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.type" placeholder="Please select type">
@@ -71,19 +54,26 @@
             </a-form-item>
             <a-form-item
               v-bind="formItemLayout"
-              label="E-mail"
+              label="E-mail Address"
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
             >
-              <a-input v-model="customer.email" />
+              <a-input v-model="customer.email" placeholder="Please input your Email Address" />
             </a-form-item>
             <a-form-item label="Birthday" :label-col="{ span: 5 }" :wrapper-col="{ span: 8 }">
               <a-date-picker v-model="customer.birthday" />
             </a-form-item>
-            <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-              <a-button type="primary" @click="Submit">Submit</a-button>
-            </a-form-item>
+            <!-- <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+              <a-button type="primary" :size="size">Submit</a-button>
+              <a-button :size="size" @click="Cancel">Back</a-button>
+            </a-form-item>-->
           </a-form>
+          <a-row>
+            <a-col :span="8" :style="{ textAlign: 'right' }">
+              <a-button type="primary" @click="Submit">Submit</a-button>
+              <a-button :style="{ marginLeft: '8px' }" @click="Cancel">Back</a-button>
+            </a-col>
+          </a-row>
         </a-card>
       </a-layout-content>
       <a-layout-footer></a-layout-footer>
@@ -204,6 +194,9 @@ export default {
     Submit() {
       this.$store.commit("ADD_CUSTOMER", this.customer);
       console.log("Customer Details: " + JSON.stringify(this.customer));
+      this.$router.push("/");
+    },
+    Cancel() {
       this.$router.push("/");
     }
   }

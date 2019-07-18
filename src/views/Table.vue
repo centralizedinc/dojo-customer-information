@@ -1,11 +1,11 @@
 <template>
   <div class="table">
     <a-layout>
-      <a-layout-header>DOJO</a-layout-header>
+      <a-layout-header></a-layout-header>
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
-            <a-button class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
+            <a-button :size="size" class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
           </div>
           <br />
           <a-table :dataSource="data" :columns="columns" bordered size="middle">
@@ -129,6 +129,7 @@
 export default {
   data() {
     return {
+      size: "large",
       data: [],
       searchText: "",
       searchInput: null,
