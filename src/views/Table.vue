@@ -216,8 +216,25 @@ export default {
           }
         },
         {
-          title: "Type",
-          dataIndex: "type",
+          title: "Courses",
+          dataIndex: "programmes",
+          key: "programmes",
+          scopedSlots: {
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.age.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+         {
+          title: "Membership",
+          dataIndex: "membership",
           key: "type",
           scopedSlots: {
             customRender: "customRender"
@@ -281,9 +298,9 @@ export default {
           }
         },
         {
-          title: "Login Time",
-          dataIndex: "login",
-          key: "login",
+          title: "Time In",
+          dataIndex: "time_in",
+          key: "time_in",
           scopedSlots: {
             customRender: "customRender"
           },

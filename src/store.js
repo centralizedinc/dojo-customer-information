@@ -14,47 +14,52 @@ export default new Vuex.Store({
       {
         key: "1",
         name: "John Brown",
-        type: "Dojo",
+        membership:"Member",
+        programmes: "Dojo",
         remaining_session: 1,
         total_session: 10,
         valid: "July 12, 2019",
-        login: "10:00AM"
+        time_in: " July 10, 2019 - 10:00AM"
       },
       {
         key: "2",
         name: "Joe Black",
-        type: "Boxing",
+        membership:"Non-Member",
+        programmes: "Boxing",
         remaining_session: 2,
         total_session: 10,
         valid: "July 1, 2019",
-        login: "8:00AM"
+        time_in: " July 5, 2019 - 8:00AM"
       },
       {
         key: "3",
         name: "Jim Green",
-        type: "Dojo",
+        membership:"Walkin",
+        programmes: "Dojo",
         remaining_session: 5,
         total_session: 10,
         valid: "July 3, 2019",
-        login: "9:00AM"
+        time_in: " July 4, 2019 - 9:00AM"
       },
       {
         key: "4",
         name: "Mr. Bean Triallanes Duterte",
-        type: "Boxing",
+        membership:"Member",
+        programmes: "Boxing",
         remaining_session: 9,
         total_session: 10,
         valid: "July 9, 2019",
-        login: "11:00AM"
+        time_in: " July 2, 2019 - 11:00AM"
       },
       {
         key: "5",
         name: "Jasmine Smith",
-        type: "Dojo",
+        membership:"Walkin",
+        programmes: "Dojo",
         remaining_session: 7,
         total_session: 10,
         valid: "July 31, 2019",
-        login: "7:00AM"
+        time_in: " July 1, 2019 - 7:00AM"
       }
     ]
 

@@ -34,10 +34,21 @@
             <a-form-item label="Phone number" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.phone" placeholder="Please input your Phone Number" />
             </a-form-item>
+             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-select v-model="customer.membership" placeholder="Please select membership">
+                <a-select-option value="Dojo">Non-Member</a-select-option>
+                <a-select-option value="Boxing">Member</a-select-option>
+                <a-select-option value="Boxing">Walkin</a-select-option>
+              </a-select>
+            </a-form-item>
             <a-form-item label="Type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.type" placeholder="Please select type">
-                <a-select-option value="Dojo">Dojo</a-select-option>
-                <a-select-option value="Boxing">Boxing</a-select-option>
+                <a-select-option value="Dojo">DOJO</a-select-option>
+                <a-select-option value="Boxing">BOXING</a-select-option>
+                <a-select-option value="Boxing">IWAMA AIKIDO</a-select-option>
+                <a-select-option value="Boxing">ARNIS</a-select-option>
+                <a-select-option value="Boxing">BRAZILIAN LUTA LIVRE</a-select-option>
+                <a-select-option value="Boxing">MUAY THAI</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Gender" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
