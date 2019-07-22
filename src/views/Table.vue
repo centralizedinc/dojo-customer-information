@@ -96,14 +96,28 @@
                 >
                   <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
                   <p :style="pStyle">Personal</p>-->
-                  <p :style="[pStyle, pStyle2]">Fullname:  {{customer.name}}</p>
+                  <!-- <p :style="[pStyle, pStyle2]">Fullname:  {{customer.name}}</p>
                   <p :style="pStyle">Address:  {{customer.address}}</p>
                   <p :style="pStyle">Mobile Number:  {{customer.phone}}</p>
                   <p :style="pStyle">Type:  {{customer.type}}</p>
                   <p :style="pStyle">Gender:  {{customer.gender}}</p>
                   <p :style="pStyle">Status:  {{customer.status}}</p>
                   <p :style="pStyle">Email Address:  {{customer.email}}</p>
-                  <p :style="pStyle">Birthday:  {{customer.birthday}}</p>
+                  <p :style="pStyle">Birthday:  {{customer.birthday}}</p>-->
+                  <a-card>
+                    <div>
+                      <a-avatar :size="64" icon="user" />
+                      <br />
+                      <p :style="[pStyle, pStyle2]">Fullname: John Brown</p>
+                      <p :style="pStyle">Address: Makati City</p>
+                      <p :style="pStyle">Mobile Number: 095678789812</p>
+                      <p :style="pStyle">Type: Boxing</p>
+                      <p :style="pStyle">Gender: Male</p>
+                      <p :style="pStyle">Status: Single</p>
+                      <p :style="pStyle">Email Address: john@yahoo.com</p>
+                      <p :style="pStyle">Birthday: May 1, 1992</p>
+                    </div>
+                  </a-card>
                 </a-drawer>
               </div>
             </template>
@@ -348,13 +362,8 @@ export default {
       this.visible = false;
     },
     save(key) {
-      // const newData = [...this.data];
-      // const target = newData.filter(item => key === item.key)[0];
-      // if (target) {
-      //   delete target.editable;
-      //   this.data = newData;
-      //   this.cacheData = newData.map(item => ({ ...item }));
-      // }
+      this.$store.commit("LOGIN", new Date());
+      console.log('Time in: ', this.$store.state.time_in);
     },
     cancel(key) {
       const newData = [...this.data];
@@ -384,6 +393,25 @@ export default {
       // };
       // this.dataSource = [...dataSource, newData];
       // this.count = count + 1;
+    },
+    time_in() {
+      this.$store.commit("LOGIN", new Date());
+      console.log('Time in: ', this.$store.state.time_in);
+    },
+    time_out() {
+      this.$store.commit("LOGOUT", new Date());
+     console.log('Time in: ', this.$store.state.time_out);
+    }
+  },
+  computed: {
+    items() {
+      return this.$store.state.time_in;
+    },
+    items1() {
+      return this.$store.state.time_out;
+    },
+    islogin() {
+      return this.$store.state.Islogin;
     }
   }
 };

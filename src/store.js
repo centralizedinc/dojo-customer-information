@@ -5,6 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    count: 100,
+    time_in:[],
+    time_out: [],
+    Islogin:false,
     selectedCustomer:{},
     customers: [
       {
@@ -63,7 +67,18 @@ export default new Vuex.Store({
     },
     SELECT_CUSTOMER(state, payload){
       state.selectedCustomer = payload
-    }
+    },
+    ADD: function(state, payload){
+      state.count++;
+    },
+    LOGIN: function(state, payload){
+      state.time_in.push(payload);
+      state.Islogin = true
+    },
+    LOGOUT: function(state, payload){
+      state.time_out.push(payload);
+      state.Islogin = false
+    },
 
   },
   actions: {
