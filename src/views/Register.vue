@@ -82,9 +82,11 @@
 </template>
 
 <script>
+// import dojo from "../assets/dojo.png"
 export default {
   data() {
     return {
+      // dojo: dojo,
       customer: {},
       formItemLayout: {
         labelCol: {
@@ -218,5 +220,6 @@ export default {
 #components-form-demo-vuex .ant-layout-footer {
   line-height: 60;
   background: rgba(34, 8, 0, 0.2);
+ 
 }
 </style>
