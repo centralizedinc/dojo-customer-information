@@ -1,7 +1,8 @@
 <template>
   <div class="register" id="components-form-demo-vuex">
     <a-layout>
-      <a-layout-header></a-layout-header>
+      <a-layout-header class="test">
+        DOJO SUPREMO   “UNLEASHED YOUR GREATNESS”</a-layout-header> 
       <a-layout-content>
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
@@ -217,5 +218,12 @@ export default {
 #components-form-demo-vuex .ant-layout-footer {
   line-height: 60;
   background: rgba(34, 8, 0, 0.2);
+}
+.test{
+  color: white !important; 
+  font-size: 40px !important;
+  text-align: center !important;
+  font-style: oblique !important;
+  
 }
 </style>
