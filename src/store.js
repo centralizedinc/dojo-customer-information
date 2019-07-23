@@ -5,10 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 100,
     time_in:[],
     time_out: [],
-    Islogin:false,
     selectedCustomer:{},
     customers: [
       {
@@ -19,6 +17,7 @@ export default new Vuex.Store({
         remaining_session: 1,
         total_session: 10,
         valid: "July 12, 2019",
+        last_login: " July 2, 2019 - 8:00AM",
         time_in: " July 10, 2019 - 10:00AM"
       },
       {
@@ -29,6 +28,7 @@ export default new Vuex.Store({
         remaining_session: 2,
         total_session: 10,
         valid: "July 1, 2019",
+        last_login: " July 1, 2019 - 7:00AM",
         time_in: " July 5, 2019 - 8:00AM"
       },
       {
@@ -39,6 +39,7 @@ export default new Vuex.Store({
         remaining_session: 5,
         total_session: 10,
         valid: "July 3, 2019",
+        last_login: " July 2, 2019 - 7:00AM",
         time_in: " July 4, 2019 - 9:00AM"
       },
       {
@@ -49,6 +50,7 @@ export default new Vuex.Store({
         remaining_session: 9,
         total_session: 10,
         valid: "July 9, 2019",
+        last_login: " July 1, 2019 - 9:00AM",
         time_in: " July 2, 2019 - 11:00AM"
       },
       {
@@ -59,6 +61,7 @@ export default new Vuex.Store({
         remaining_session: 7,
         total_session: 10,
         valid: "July 31, 2019",
+        last_login: " June 29, 2019 - 10:00AM",
         time_in: " July 1, 2019 - 7:00AM"
       }
     ]
@@ -78,11 +81,9 @@ export default new Vuex.Store({
     },
     LOGIN: function(state, payload){
       state.time_in.push(payload);
-      state.Islogin = true
     },
     LOGOUT: function(state, payload){
       state.time_out.push(payload);
-      state.Islogin = false
     },
 
   },

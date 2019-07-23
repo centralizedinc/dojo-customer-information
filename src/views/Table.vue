@@ -64,20 +64,8 @@
             </template>
             <template slot="operation" slot-scope="text, record">
               <div class="editable-row-operations">
-                <!-- <span v-if="record.editable">
-                  <a-popconfirm title="Sure to Login?" @confirm="() => save(record.key)">
-                    <a>Save</a>
-                  </a-popconfirm>
-                  <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                    <a>Cancel</a>
-                  </a-popconfirm>
-                </span>
-                <span v-else>
-                  <a @click="() => edit(record.key)">Login</a>
-                </span>-->
-
                 <a-popconfirm title="Sure to Login?" @confirm="save(record.key)">
-                  <a>Login</a>
+                  <a>Time In</a>
                 </a-popconfirm>
               </div>
             </template>
@@ -222,17 +210,23 @@ export default {
           scopedSlots: {
             customRender: "customRender"
           },
-          onFilter: (value, record) =>
-            record.age.toLowerCase().includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus();
-              });
-            }
-          }
+          filters: [
+            { text: "DOJO", value: "dojo" },
+            { text: "BOXING", value: "boxing" },
+            { text: "IWAMA AIKIDO", value: "aikido" },
+            { text: "ARNIS", value: "arnis" },
+            { text: "BRAZILIAN LUTA LIVRE", value: "luta_livre" },
+            { text: "MUAY THAI", value: "muay_thai" },
+            { text: "MIXED MARTIAL ARTS", value: "martial_arts" },
+            { text: "TAEKWONDO", value: "taekwondo" },
+            { text: "AEROBICS", value: "aerobics" },
+            { text: "YOGA", value: "yoga" },
+            { text: "ZUMBA", value: "zumba" }
+
+          ],
+          width: "10%"
         },
-         {
+        {
           title: "Membership",
           dataIndex: "membership",
           key: "type",
@@ -284,6 +278,23 @@ export default {
           title: "Valid Until",
           dataIndex: "valid",
           key: "valid",
+          scopedSlots: {
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.address.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+        {
+          title: "Last Time-in",
+          dataIndex: "last_login",
+          key: "last_login",
           scopedSlots: {
             customRender: "customRender"
           },
@@ -391,7 +402,7 @@ export default {
     },
     save(key) {
       this.$store.commit("LOGIN", new Date());
-      console.log('Time in: ', this.$store.state.time_in);
+      console.log("Time in: ", this.$store.state.time_in);
     },
     cancel(key) {
       const newData = [...this.data];
@@ -412,23 +423,14 @@ export default {
     },
     handleAdd() {
       this.$router.push("/register");
-      // const { count, dataSource } = this;
-      // const newData = {
-      //   key: count,
-      //   name: `Edward King ${count}`,
-      //   age: 32,
-      //   address: `London, Park Lane no. ${count}`
-      // };
-      // this.dataSource = [...dataSource, newData];
-      // this.count = count + 1;
     },
     time_in() {
       this.$store.commit("LOGIN", new Date());
-      console.log('Time in: ', this.$store.state.time_in);
+      console.log("Time in: ", this.$store.state.time_in);
     },
     time_out() {
       this.$store.commit("LOGOUT", new Date());
-     console.log('Time in: ', this.$store.state.time_out);
+      console.log("Time in: ", this.$store.state.time_out);
     }
   },
   computed: {
@@ -437,9 +439,6 @@ export default {
     },
     items1() {
       return this.$store.state.time_out;
-    },
-    islogin() {
-      return this.$store.state.Islogin;
     }
   }
 };
