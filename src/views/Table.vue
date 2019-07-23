@@ -128,7 +128,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from "axios";
+=======
+
+import axios from 'axios'
+
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
 // const data = [
 //   {
 //     key: "1",
@@ -205,6 +211,25 @@ export default {
           }
         },
         {
+          title: "Session",
+          dataIndex: "session",
+          key: "session",
+          scopedSlots: {
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon",
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.name.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
+            }
+          }
+        },
+        {
           title: "Courses",
           dataIndex: "programmes",
           key: "programmes",
@@ -245,39 +270,44 @@ export default {
         },
         {
           title: "Session",
-          children: [
-            {
-              title: "Remaining Session",
-              dataIndex: "remaining_session",
-              key: "remaining_session",
-              scopedSlots: {
-                customRender: "customRender"
-              }
-            },
-            {
-              title: "Total Session",
-              dataIndex: "total_session",
-              key: "total_session",
-              scopedSlots: {
-                customRender: "customRender"
-              }
-            }
-          ],
-          key: "remain",
-          onFilter: (value, record) =>
-            record.address.toLowerCase().includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus();
-              });
-            }
-          }
+          dataIndex: "session",
+          key: "session"
         },
+        // {
+        //   title: "Session",
+        //   children: [
+        //     {
+        //       title: "Remaining Session",
+        //       dataIndex: "remaining_session",
+        //       key: "remaining_session",
+        //       scopedSlots: {
+        //         customRender: "customRender"
+        //       }
+        //     },
+        //     {
+        //       title: "Total Session",
+        //       dataIndex: "total_session",
+        //       key: "total_session",
+        //       scopedSlots: {
+        //         customRender: "customRender"
+        //       }
+        //     }
+        //   ],
+        //   key: "session",
+        //   onFilter: (value, record) =>
+        //     record.address.toLowerCase().includes(value.toLowerCase()),
+        //   onFilterDropdownVisibleChange: visible => {
+        //     if (visible) {
+        //       setTimeout(() => {
+        //         this.searchInput.focus();
+        //       });
+        //     }
+        //   }
+        // },
         {
           title: "Valid Until",
-          dataIndex: "valid",
-          key: "valid",
+          dataIndex: "validity_until",
+          key: "validity_until",
           scopedSlots: {
             customRender: "customRender"
           },
@@ -363,6 +393,7 @@ export default {
   },
   methods: {
     init() {
+<<<<<<< HEAD
       //vue store
       // this.data = this.$store.state.customers;
 
@@ -371,6 +402,18 @@ export default {
         console.log("result :", JSON.stringify(result));
         this.data = result.data.model;
       });
+=======
+      //vues store
+      // this.data = this.$store.state.customers;
+
+      //invoke apis
+      axios.get('https://dojo-cis.herokuapp.com')
+      .then(result =>{
+        console.log(JSON.stringify(result.data.model))
+        this.data = result.data.model;
+      })
+
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -408,6 +451,7 @@ export default {
       this.visible = false;
     },
     save(record) {
+<<<<<<< HEAD
       record.session.remaining_session--;
       axios
         .post("https://dojo-cis.herokuapp.com", record_id, record)
@@ -419,6 +463,20 @@ export default {
         });
       // this.$store.commit("LOGIN", new Date());
       // console.log("Time in: ", this.$store.state.time_in);
+=======
+      // this.$store.commit("LOGIN", new Date());
+      // console.log("Time in: ", this.$store.state.time_in);
+
+      console.log(JSON.stringify(record.last_login))
+      record.last_login = record.time_in
+      record.time_in = new Date();
+      record.session.remaining_session--;
+      console.log(record.session.remaining_session)
+      axios.post('https://dojo-cis.herokuapp.com/'+record._id, record)
+      .then(result=>{
+        console.log('RESULT:::', JSON.stringify(result))
+      })
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
     },
     cancel(key) {
       const newData = [...this.data];

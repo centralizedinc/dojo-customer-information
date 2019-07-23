@@ -7,7 +7,11 @@
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item label="Firstname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input
+<<<<<<< HEAD
                 placeholder="Please input your Firstname"
+=======
+                placeholder="Please input your Firstname, Middlename & Lastname"
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
                 v-model="customer.name.first_name"
               />
             </a-form-item>
@@ -96,6 +100,7 @@ export default {
   data() {
     return {
       // dojo: dojo,
+<<<<<<< HEAD
       customer: {
         name: {
           first_name: "",
@@ -119,6 +124,9 @@ export default {
         },
         validity_until: ""
       },
+=======
+      customer: {name:{}},
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -225,6 +233,7 @@ export default {
       });
     },
     Submit() {
+<<<<<<< HEAD
       //vuex
       (this.customer.session = {}),
         (this.customer.session.remaining_session = 10),
@@ -238,6 +247,21 @@ export default {
             console.log("error :", error);
           });
       // this.$store.commit("ADD_CUSTOMER", this.customer);
+=======
+      // vuex
+      // this.$store.commit("ADD_CUSTOMER", this.customer);
+      //for testing purposes
+      this.customer.session = {};
+      this.customer.session.remaining_session = 10;
+      this.customer.session.total_session = 10;
+      var date = new Date()
+      this.customer.validity_until = new Date(date.setMonth(date.getMonth()+1));
+      axios.post('https://dojo-cis.herokuapp.com', this.customer)
+      .then(result=>{
+        console.log('RESULT: ', JSON.stringify(result))
+      })
+
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
       console.log("Customer Details: " + JSON.stringify(this.customer));
       this.$message.success("Successful Add Customer");
       this.$router.push("/");
@@ -247,6 +271,7 @@ export default {
     }
   }
 };
+import axios from 'axios'
 </script>
 <style>
 #components-form-demo-vuex .language-bash {
