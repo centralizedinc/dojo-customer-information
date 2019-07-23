@@ -8,7 +8,7 @@
             <a-form-item label="Fullname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input
                 placeholder="Please input your Firstname, Middlename & Lastname"
-                v-model="customer.name"
+                v-model="customer.name.first_name"
               />
             </a-form-item>
             <!-- <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
@@ -106,7 +106,7 @@ export default {
   data() {
     return {
       // dojo: dojo,
-      customer: {},
+      customer: {name:{}},
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -213,7 +213,19 @@ export default {
       });
     },
     Submit() {
-      this.$store.commit("ADD_CUSTOMER", this.customer);
+      // vuex
+      // this.$store.commit("ADD_CUSTOMER", this.customer);
+      //for testing purposes
+      this.customer.session = {};
+      this.customer.session.remaining_session = 10;
+      this.customer.session.total_session = 10;
+      var date = new Date()
+      this.customer.validity_until = new Date(date.setMonth(date.getMonth()+1));
+      axios.post('https://dojo-cis.herokuapp.com', this.customer)
+      .then(result=>{
+        console.log('RESULT: ', JSON.stringify(result))
+      })
+
       console.log("Customer Details: " + JSON.stringify(this.customer));
       this.$message.success("Successful Add Customer");
       this.$router.push("/");
@@ -223,6 +235,7 @@ export default {
     }
   }
 };
+import axios from 'axios'
 </script>
 <style>
 #components-form-demo-vuex .language-bash {
