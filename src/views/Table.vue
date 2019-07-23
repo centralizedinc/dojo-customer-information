@@ -5,7 +5,13 @@
       <a-layout-content>
         <a-card title="DOJO Customer Information">
           <div>
-            <a-button :size="size" class="editable-add-btn" type="primary" ghost @click="handleAdd">Add Customer</a-button>
+            <a-button
+              :size="size"
+              class="editable-add-btn"
+              type="primary"
+              ghost
+              @click="handleAdd"
+            >Add Customer</a-button>
           </div>
           <br />
           <a-table :dataSource="data" :columns="columns" bordered size="middle">
@@ -58,28 +64,59 @@
             </template>
             <template slot="operation" slot-scope="text, record">
               <div class="editable-row-operations">
-                <!-- <span v-if="record.editable">
-                  <a-popconfirm title="Sure to Login?" @confirm="() => save(record.key)">
-                    <a>Save</a>
-                  </a-popconfirm>
-                  <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                    <a>Cancel</a>
-                  </a-popconfirm>
-                </span>
-                <span v-else>
-                  <a @click="() => edit(record.key)">Login</a>
-                </span>-->
-
                 <a-popconfirm title="Sure to Login?" @confirm="save(record.key)">
-                  <a>Login</a>
+                  <a>Time In</a>
                 </a-popconfirm>
               </div>
             </template>
             <template slot="view" slot-scope="text, record">
               <div>
                 <span>
-                  <a @click="handleView(record)">View</a>
+                  <a @click="showDrawer(record)">View</a>
                 </span>
+                <!-- VIEW -->
+                <a-drawer
+                  width="640"
+                  title="Customer Details"
+                  placement="right"
+                  :closable="false"
+                  @close="onClose"
+                  :visible="visible"
+                >
+                  <a-card class="test03">
+                    <!-- <a-col :span="4" :offset="11"> -->
+                    <a-col :span="4">
+                      <a-avatar
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8YTbzfa8-0pOEGrEcZhXCLrbHE0BgNwDMM90vw1MzhTUXM5Kc"
+                        shape="circle"
+                        class="avatar"
+                      />
+                    </a-col>
+                    <!-- <a-row>
+                    <a-col :span="0"></a-col>
+                    <img :src="dojo" width="300" height="200"/>
+                    </a-row><br>-->
+                    <!-- <p :style="[pStyle, pStyle2]">User Profile</p>
+                    <p :style="pStyle">Personal</p>-->
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <p :style="[pStyle, pStyle2]">Fullname: {{customer.name}}</p>
+                    <p :style="pStyle">Address: {{customer.address}}</p>
+                    <p :style="pStyle">Mobile Number: {{customer.phone}}</p>
+                    <p :style="pStyle">Type: {{customer.type}}</p>
+                    <p :style="pStyle">Gender: {{customer.gender}}</p>
+                    <p :style="pStyle">Status: {{customer.status}}</p>
+                    <p :style="pStyle">Email Address: {{customer.email}}</p>
+                    <p :style="pStyle">Birthday: {{customer.birthday}}</p>
+                  </a-card>
+                  <!-- <img :src="dojo" width="300" height="200"/> -->
+                </a-drawer>
               </div>
             </template>
           </a-table>
@@ -125,14 +162,27 @@
 //     login: "11:00AM"
 //   }
 // ];
-
+import dojo from "../assets/dojo.png";
 export default {
   data() {
     return {
+      dojo: dojo,
+      customer: {},
+      visible: false,
       size: "large",
       data: [],
       searchText: "",
       searchInput: null,
+      pStyle: {
+        fontSize: "16px",
+        color: "rgba(0,0,0,0.85)",
+        lineHeight: "24px",
+        display: "block",
+        marginBottom: "16px"
+      },
+      pStyle2: {
+        marginBottom: "24px"
+      },
       columns: [
         {
           title: "Fullname",
@@ -154,12 +204,33 @@ export default {
           }
         },
         {
-          title: "Type",
-          dataIndex: "type",
+          title: "Courses",
+          dataIndex: "programmes",
+          key: "programmes",
+          scopedSlots: {
+            customRender: "customRender"
+          },
+          filters: [
+            { text: "DOJO", value: "dojo" },
+            { text: "BOXING", value: "boxing" },
+            { text: "IWAMA AIKIDO", value: "aikido" },
+            { text: "ARNIS", value: "arnis" },
+            { text: "BRAZILIAN LUTA LIVRE", value: "luta_livre" },
+            { text: "MUAY THAI", value: "muay_thai" },
+            { text: "MIXED MARTIAL ARTS", value: "martial_arts" },
+            { text: "TAEKWONDO", value: "taekwondo" },
+            { text: "AEROBICS", value: "aerobics" },
+            { text: "YOGA", value: "yoga" },
+            { text: "ZUMBA", value: "zumba" }
+
+          ],
+          width: "10%"
+        },
+        {
+          title: "Membership",
+          dataIndex: "membership",
           key: "type",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -180,8 +251,6 @@ export default {
               dataIndex: "remaining_session",
               key: "remaining_session",
               scopedSlots: {
-                filterDropdown: "filterDropdown",
-                filterIcon: "filterIcon",
                 customRender: "customRender"
               }
             },
@@ -190,8 +259,6 @@ export default {
               dataIndex: "total_session",
               key: "total_session",
               scopedSlots: {
-                filterDropdown: "filterDropdown",
-                filterIcon: "filterIcon",
                 customRender: "customRender"
               }
             }
@@ -210,11 +277,8 @@ export default {
         {
           title: "Valid Until",
           dataIndex: "valid",
-          className: "Valid",
           key: "valid",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -228,13 +292,27 @@ export default {
           }
         },
         {
-          title: "Login Time",
-          dataIndex: "login",
-          className: "login",
-          key: "login",
+          title: "Last Time-in",
+          dataIndex: "last_login",
+          key: "last_login",
           scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.address.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+        {
+          title: "Time In",
+          dataIndex: "time_in",
+          key: "time_in",
+          scopedSlots: {
             customRender: "customRender"
           },
           onFilter: (value, record) =>
@@ -250,7 +328,6 @@ export default {
         {
           title: "Operations",
           dataIndex: "operation",
-          className: "operation",
           key: "operation",
           scopedSlots: { customRender: "operation" },
           onFilter: (value, record) =>
@@ -315,14 +392,17 @@ export default {
         this.data = newData;
       }
     },
+    showDrawer(record) {
+      //  this.$store.commit("SELECT_CUSTOMER", record);
+      this.customer = record;
+      this.visible = true;
+    },
+    onClose() {
+      this.visible = false;
+    },
     save(key) {
-      // const newData = [...this.data];
-      // const target = newData.filter(item => key === item.key)[0];
-      // if (target) {
-      //   delete target.editable;
-      //   this.data = newData;
-      //   this.cacheData = newData.map(item => ({ ...item }));
-      // }
+      this.$store.commit("LOGIN", new Date());
+      console.log("Time in: ", this.$store.state.time_in);
     },
     cancel(key) {
       const newData = [...this.data];
@@ -343,15 +423,22 @@ export default {
     },
     handleAdd() {
       this.$router.push("/register");
-      // const { count, dataSource } = this;
-      // const newData = {
-      //   key: count,
-      //   name: `Edward King ${count}`,
-      //   age: 32,
-      //   address: `London, Park Lane no. ${count}`
-      // };
-      // this.dataSource = [...dataSource, newData];
-      // this.count = count + 1;
+    },
+    time_in() {
+      this.$store.commit("LOGIN", new Date());
+      console.log("Time in: ", this.$store.state.time_in);
+    },
+    time_out() {
+      this.$store.commit("LOGOUT", new Date());
+      console.log("Time in: ", this.$store.state.time_out);
+    }
+  },
+  computed: {
+    items() {
+      return this.$store.state.time_in;
+    },
+    items1() {
+      return this.$store.state.time_out;
     }
   }
 };
@@ -376,5 +463,14 @@ export default {
 th.columns,
 td.columns {
   text-align: center !important;
+}
+.avatar {
+  height: 150px !important;
+  width: 170px !important;
+  margin: 0px !important;
+}
+.test03 {
+  margin: 0px !important;
+  /* background: rgb(15, 15, 16) !important; */
 }
 </style>

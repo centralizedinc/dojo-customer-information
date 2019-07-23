@@ -7,7 +7,10 @@
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item label="Fullname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input placeholder="Please input your Firstname, Middlename & Lastname" v-model="customer.name" />
+              <a-input
+                placeholder="Please input your Firstname, Middlename & Lastname"
+                v-model="customer.name"
+              />
             </a-form-item>
             <!-- <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.middle_name"
@@ -35,10 +38,26 @@
             <a-form-item label="Phone number" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.phone" placeholder="Please input your Phone Number" />
             </a-form-item>
-            <a-form-item label="Type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.type" placeholder="Please select type">
-                <a-select-option value="Dojo">Dojo</a-select-option>
-                <a-select-option value="Boxing">Boxing</a-select-option>
+            <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-select v-model="customer.membership" placeholder="Please select membership">
+                <a-select-option value="Dojo">Non-Member</a-select-option>
+                <a-select-option value="Boxing">Member</a-select-option>
+                <a-select-option value="Boxing">Walkin</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="Programmes" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-select v-model="customer.type" placeholder="Please select programmes">
+                <a-select-option value="Dojo">DOJO</a-select-option>
+                <a-select-option value="Boxing">BOXING</a-select-option>
+                <a-select-option value="Boxing">IWAMA AIKIDO</a-select-option>
+                <a-select-option value="Boxing">ARNIS</a-select-option>
+                <a-select-option value="Boxing">BRAZILIAN LUTA LIVRE</a-select-option>
+                <a-select-option value="Boxing">MUAY THAI</a-select-option>
+                <a-select-option value="Boxing">MIXED MARTIAL ARTS</a-select-option>
+                <a-select-option value="Boxing">TAEKWONDO</a-select-option>
+                <a-select-option value="Boxing">AEROBICS</a-select-option>
+                <a-select-option value="Boxing">YOGA</a-select-option>
+                <a-select-option value="Boxing">ZUMBA</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Gender" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
@@ -83,9 +102,11 @@
 </template>
 
 <script>
+// import dojo from "../assets/dojo.png"
 export default {
   data() {
     return {
+      // dojo: dojo,
       customer: {},
       formItemLayout: {
         labelCol: {
@@ -195,6 +216,7 @@ export default {
     Submit() {
       this.$store.commit("ADD_CUSTOMER", this.customer);
       console.log("Customer Details: " + JSON.stringify(this.customer));
+      this.$message.success("Successful Add Customer");
       this.$router.push("/");
     },
     Cancel() {
