@@ -128,13 +128,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import axios from "axios";
-=======
 
 import axios from 'axios'
 
->>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
 // const data = [
 //   {
 //     key: "1",
@@ -393,16 +389,6 @@ export default {
   },
   methods: {
     init() {
-<<<<<<< HEAD
-      //vue store
-      // this.data = this.$store.state.customers;
-
-      //
-      axios.get("https://dojo-cis.herokuapp.com").then(result => {
-        console.log("result :", JSON.stringify(result));
-        this.data = result.data.model;
-      });
-=======
       //vues store
       // this.data = this.$store.state.customers;
 
@@ -413,7 +399,6 @@ export default {
         this.data = result.data.model;
       })
 
->>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -451,19 +436,6 @@ export default {
       this.visible = false;
     },
     save(record) {
-<<<<<<< HEAD
-      record.session.remaining_session--;
-      axios
-        .post("https://dojo-cis.herokuapp.com", record_id, record)
-        .then(result => {
-          console.log("result :", JSON.Stringfy(result));
-        })
-        .catch(err => {
-          console.log("error :", error);
-        });
-      // this.$store.commit("LOGIN", new Date());
-      // console.log("Time in: ", this.$store.state.time_in);
-=======
       // this.$store.commit("LOGIN", new Date());
       // console.log("Time in: ", this.$store.state.time_in);
 
@@ -476,7 +448,6 @@ export default {
       .then(result=>{
         console.log('RESULT:::', JSON.stringify(result))
       })
->>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
     },
     cancel(key) {
       const newData = [...this.data];
