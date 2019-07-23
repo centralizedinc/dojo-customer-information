@@ -28,24 +28,24 @@
             </a-form-item>
             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.membership" placeholder="Please select membership">
-                <a-select-option value="Dojo">Non-Member</a-select-option>
-                <a-select-option value="Boxing">Member</a-select-option>
-                <a-select-option value="Boxing">Walkin</a-select-option>
+                <a-select-option value="non_member">Non-Member</a-select-option>
+                <a-select-option value="member">Member</a-select-option>
+                <a-select-option value="walkin">Walkin</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Programmes" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.programmes" placeholder="Please select programmes">
-                <a-select-option value="Dojo">DOJO</a-select-option>
-                <a-select-option value="Boxing">BOXING</a-select-option>
-                <a-select-option value="Boxing">IWAMA AIKIDO</a-select-option>
-                <a-select-option value="Boxing">ARNIS</a-select-option>
-                <a-select-option value="Boxing">BRAZILIAN LUTA LIVRE</a-select-option>
-                <a-select-option value="Boxing">MUAY THAI</a-select-option>
-                <a-select-option value="Boxing">MIXED MARTIAL ARTS</a-select-option>
-                <a-select-option value="Boxing">TAEKWONDO</a-select-option>
-                <a-select-option value="Boxing">AEROBICS</a-select-option>
-                <a-select-option value="Boxing">YOGA</a-select-option>c
-                <a-select-option value="Boxing">ZUMBA</a-select-option>
+                <a-select-option value="dojo">DOJO</a-select-option>
+                <a-select-option value="boxing">BOXING</a-select-option>
+                <a-select-option value="aikido">IWAMA AIKIDO</a-select-option>
+                <a-select-option value="arnis">ARNIS</a-select-option>
+                <a-select-option value="luta_livre">BRAZILIAN LUTA LIVRE</a-select-option>
+                <a-select-option value="muay_thai">MUAY THAI</a-select-option>
+                <a-select-option value="martial_arts">MIXED MARTIAL ARTS</a-select-option>
+                <a-select-option value="taekwondo">TAEKWONDO</a-select-option>
+                <a-select-option value="aerobics">AEROBICS</a-select-option>
+                <a-select-option value="yoga">YOGA</a-select-option>c
+                <a-select-option value="zumba">ZUMBA</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Gender" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
@@ -250,7 +250,6 @@ export default {
     }
   }
 };
-import axios from "axios";
 </script>
 <style>
 #components-form-demo-vuex .language-bash {
