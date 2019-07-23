@@ -6,37 +6,30 @@
       <a-layout-content>
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
-            <a-form-item label="Fullname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+            <a-form-item label="Firstname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input
+<<<<<<< HEAD
+                placeholder="Please input your Firstname"
+=======
                 placeholder="Please input your Firstname, Middlename & Lastname"
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
                 v-model="customer.name.first_name"
               />
             </a-form-item>
-            <!-- <a-form-item label="Middle Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input v-model="customer.middle_name"
-                v-decorator="[
-            'middlename',
-            {
-              rules: [{ required: true, message: 'Middle name is required!' }],
-            }
-          ]"
+            <a-form-item label="Middlename" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input
+                placeholder="Please input your Middlename"
+                v-model="customer.name.middle_name"
               />
             </a-form-item>
-            <a-form-item label="Last Name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input v-model="customer.last_name"
-                v-decorator="[
-            'lastname',
-            {
-              rules: [{ required: true, message: 'Last name is required!' }],
-            }
-          ]"
-              />
-            </a-form-item>-->
+            <a-form-item label="Lastname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input placeholder="Please input your Lastname" v-model="customer.name.last_name" />
+            </a-form-item>
             <a-form-item label="Address" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.address" placeholder="Please input your Address" />
             </a-form-item>
             <a-form-item label="Phone number" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-input v-model="customer.phone" placeholder="Please input your Phone Number" />
+              <a-input v-model="customer.contact" placeholder="Please input your Phone Number" />
             </a-form-item>
             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.membership" placeholder="Please select membership">
@@ -46,7 +39,7 @@
               </a-select>
             </a-form-item>
             <a-form-item label="Programmes" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.type" placeholder="Please select programmes">
+              <a-select v-model="customer.programmes" placeholder="Please select programmes">
                 <a-select-option value="Dojo">DOJO</a-select-option>
                 <a-select-option value="Boxing">BOXING</a-select-option>
                 <a-select-option value="Boxing">IWAMA AIKIDO</a-select-option>
@@ -56,7 +49,7 @@
                 <a-select-option value="Boxing">MIXED MARTIAL ARTS</a-select-option>
                 <a-select-option value="Boxing">TAEKWONDO</a-select-option>
                 <a-select-option value="Boxing">AEROBICS</a-select-option>
-                <a-select-option value="Boxing">YOGA</a-select-option>
+                <a-select-option value="Boxing">YOGA</a-select-option>c
                 <a-select-option value="Boxing">ZUMBA</a-select-option>
               </a-select>
             </a-form-item>
@@ -102,12 +95,39 @@
 </template>
 
 <script>
+import axios from "axios";
 // import dojo from "../assets/dojo.png"
 export default {
   data() {
     return {
       // dojo: dojo,
+<<<<<<< HEAD
+      customer: {
+        name: {
+          first_name: "",
+          middle_name: "",
+          last_name: ""
+        },
+        address: "",
+        contact: "",
+        gender: "",
+        status: "",
+        email: "",
+        birthday: "",
+        programmes: "",
+        membership: "",
+        time_in: "",
+        time_out: "",
+        last_login: "",
+        session: {
+          remaining_session: "",
+          total_session: ""
+        },
+        validity_until: ""
+      },
+=======
       customer: {name:{}},
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -214,6 +234,21 @@ export default {
       });
     },
     Submit() {
+<<<<<<< HEAD
+      //vuex
+      (this.customer.session = {}),
+        (this.customer.session.remaining_session = 10),
+        (this.customer.session.total_session = 10),
+        axios
+          .post("https://dojo-cis.herokuapp.com", this.customer)
+          .then(result => {
+            console.log("result :", JSON.Stringfy(result));
+          })
+          .catch(err => {
+            console.log("error :", error);
+          });
+      // this.$store.commit("ADD_CUSTOMER", this.customer);
+=======
       // vuex
       // this.$store.commit("ADD_CUSTOMER", this.customer);
       //for testing purposes
@@ -227,6 +262,7 @@ export default {
         console.log('RESULT: ', JSON.stringify(result))
       })
 
+>>>>>>> a5982cce38b39aaa7ed71ae0ae8966249b220175
       console.log("Customer Details: " + JSON.stringify(this.customer));
       this.$message.success("Successful Add Customer");
       this.$router.push("/");
