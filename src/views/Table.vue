@@ -64,7 +64,7 @@
             </template>
             <template slot="operation" slot-scope="text, record">
               <div class="editable-row-operations">
-                <a-popconfirm title="Sure to Login?" @confirm="save(record.key)">
+                <a-popconfirm title="Sure to Login?" @confirm="save(record)">
                   <a>Time In</a>
                 </a-popconfirm>
               </div>
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import axios from "axios";
 // const data = [
 //   {
 //     key: "1",
@@ -222,7 +223,6 @@ export default {
             { text: "AEROBICS", value: "aerobics" },
             { text: "YOGA", value: "yoga" },
             { text: "ZUMBA", value: "zumba" }
-
           ],
           width: "10%"
         },
@@ -363,7 +363,14 @@ export default {
   },
   methods: {
     init() {
-      this.data = this.$store.state.customers;
+      //vue store
+      // this.data = this.$store.state.customers;
+
+      //
+      axios.get("https://dojo-cis.herokuapp.com").then(result => {
+        console.log("result :", JSON.stringify(result));
+        this.data = result.data.model;
+      });
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -400,9 +407,18 @@ export default {
     onClose() {
       this.visible = false;
     },
-    save(key) {
-      this.$store.commit("LOGIN", new Date());
-      console.log("Time in: ", this.$store.state.time_in);
+    save(record) {
+      record.session.remaining_session--;
+      axios
+        .post("https://dojo-cis.herokuapp.com", record_id, record)
+        .then(result => {
+          console.log("result :", JSON.Stringfy(result));
+        })
+        .catch(err => {
+          console.log("error :", error);
+        });
+      // this.$store.commit("LOGIN", new Date());
+      // console.log("Time in: ", this.$store.state.time_in);
     },
     cancel(key) {
       const newData = [...this.data];
