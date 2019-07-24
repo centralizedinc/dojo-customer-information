@@ -19,7 +19,7 @@
             <template
               slot="validity_until"
               slot-scope="validity_until"
-            >{{formatDate(validity_until)}}</template>
+            >{{Dateformat(validity_until)}}</template>
             <template slot="time_in" slot-scope="time_in">{{formatDate(time_in)}}</template>
             <div
               slot="filterDropdown"
@@ -570,11 +570,20 @@ export default {
             year: "numeric",
             hour: "2-digit",
             minute: "2-digit"
-            // hour12: true,
-            // year: "numeric",
-            // month: "numeric",
-            // hour: "2-digit",
-            // minute: "2-digit"
+          };
+      var dt = new Date(date).toLocaleString("en-US", format);
+      return dt;
+    },
+    Dateformat(date, type) {
+      if (!date) {
+        return "";
+      }
+      var format = type
+        ? type
+        : {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
           };
       var dt = new Date(date).toLocaleString("en-US", format);
       return dt;
