@@ -61,7 +61,6 @@
               </a-select>
             </a-form-item>
             <a-form-item
-              v-bind="formItemLayout"
               label="E-mail Address"
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
@@ -71,10 +70,6 @@
             <a-form-item label="Birthday" :label-col="{ span: 5 }" :wrapper-col="{ span: 8 }">
               <a-date-picker v-model="customer.birthday" />
             </a-form-item>
-            <!-- <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-              <a-button type="primary" :size="size">Submit</a-button>
-              <a-button :size="size" @click="Cancel">Back</a-button>
-            </a-form-item>-->
           </a-form>
           <a-row>
             <a-col :span="8" :style="{ textAlign: 'right' }">

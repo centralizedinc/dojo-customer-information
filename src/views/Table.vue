@@ -15,6 +15,9 @@
           </div>
           <br />
           <a-table :dataSource="data" :columns="columns" bordered size="middle">
+            <template slot="last_login" slot-scope="last_login">{{formatDate(last_login)}}</template>
+            <template slot="validity_until" slot-scope="validity_until">{{formatDate(validity_until)}}</template>
+            <template slot="time_in" slot-scope="time_in">{{formatDate(time_in)}}</template>
             <div
               slot="filterDropdown"
               slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
@@ -128,8 +131,7 @@
 </template>
 
 <script>
-
-import axios from 'axios'
+import axios from "axios";
 
 // const data = [
 //   {
@@ -188,9 +190,9 @@ export default {
       },
       columns: [
         {
-          title: "Fullname",
-          dataIndex: "name",
-          key: "name",
+          title: "Firstname",
+          dataIndex: "name.first_name",
+          key: "name.first_name",
           scopedSlots: {
             filterDropdown: "filterDropdown",
             filterIcon: "filterIcon",
@@ -207,9 +209,28 @@ export default {
           }
         },
         {
-          title: "Session",
-          dataIndex: "session",
-          key: "session",
+          title: "Middlename",
+          dataIndex: "name.middle_name",
+          key: "name.middle_name",
+          scopedSlots: {
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon",
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.name.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
+            }
+          }
+        },
+        {
+          title: "Lastname",
+          dataIndex: "name.last_name",
+          key: "name.last_name",
           scopedSlots: {
             filterDropdown: "filterDropdown",
             filterIcon: "filterIcon",
@@ -250,7 +271,7 @@ export default {
         {
           title: "Membership",
           dataIndex: "membership",
-          key: "type",
+          key: "membership",
           scopedSlots: {
             customRender: "customRender"
           },
@@ -266,40 +287,35 @@ export default {
         },
         {
           title: "Session",
-          dataIndex: "session",
-          key: "session"
+          children: [
+            {
+              title: "Remaining Session",
+              dataIndex: "session.remaining_session",
+              key: "session.remaining_session",
+              scopedSlots: {
+                customRender: "customRender"
+              }
+            },
+            {
+              title: "Total Session",
+              dataIndex: "session.total_session",
+              key: "session.total_session",
+              scopedSlots: {
+                customRender: "customRender"
+              }
+            }
+          ],
+          key: "session",
+          onFilter: (value, record) =>
+            record.address.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
         },
-        // {
-        //   title: "Session",
-        //   children: [
-        //     {
-        //       title: "Remaining Session",
-        //       dataIndex: "remaining_session",
-        //       key: "remaining_session",
-        //       scopedSlots: {
-        //         customRender: "customRender"
-        //       }
-        //     },
-        //     {
-        //       title: "Total Session",
-        //       dataIndex: "total_session",
-        //       key: "total_session",
-        //       scopedSlots: {
-        //         customRender: "customRender"
-        //       }
-        //     }
-        //   ],
-        //   key: "session",
-        //   onFilter: (value, record) =>
-        //     record.address.toLowerCase().includes(value.toLowerCase()),
-        //   onFilterDropdownVisibleChange: visible => {
-        //     if (visible) {
-        //       setTimeout(() => {
-        //         this.searchInput.focus();
-        //       });
-        //     }
-        //   }
-        // },
         {
           title: "Valid Until",
           dataIndex: "validity_until",
@@ -393,12 +409,10 @@ export default {
       // this.data = this.$store.state.customers;
 
       //invoke apis
-      axios.get('https://dojo-cis.herokuapp.com')
-      .then(result =>{
-        console.log(JSON.stringify(result.data.model))
+      axios.get("https://dojo-cis.herokuapp.com").then(result => {
+        console.log(JSON.stringify(result.data.model));
         this.data = result.data.model;
-      })
-
+      });
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -439,15 +453,16 @@ export default {
       // this.$store.commit("LOGIN", new Date());
       // console.log("Time in: ", this.$store.state.time_in);
 
-      console.log(JSON.stringify(record.last_login))
-      record.last_login = record.time_in
+      console.log(JSON.stringify(record.last_login));
+      record.last_login = record.time_in;
       record.time_in = new Date();
       record.session.remaining_session--;
-      console.log(record.session.remaining_session)
-      axios.post('https://dojo-cis.herokuapp.com/'+record._id, record)
-      .then(result=>{
-        console.log('RESULT:::', JSON.stringify(result))
-      })
+      console.log(record.session.remaining_session);
+      axios
+        .post("https://dojo-cis.herokuapp.com/" + record._id, record)
+        .then(result => {
+          console.log("RESULT:::", JSON.stringify(result));
+        });
     },
     cancel(key) {
       const newData = [...this.data];
@@ -476,6 +491,21 @@ export default {
     time_out() {
       this.$store.commit("LOGOUT", new Date());
       console.log("Time in: ", this.$store.state.time_out);
+    },
+    formatDate(date, type) {
+      if (!date) {
+        return "";
+      }
+      var format = type
+        ? type
+        : {
+            hour12: true,
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+          };
+      var dt = new Date(date).toLocaleString("en-US", format);
+      return dt;
     }
   },
   computed: {
