@@ -115,9 +115,12 @@
 
                     <a-row>
                       <a-col :span="12">
-                        <p :style="pStyle">Fullname: {{customer.name.first_name}} {{customer.name.middle_name}} {{customer.name.last_name}}</p>
+                        <p
+                          :style="pStyle"
+                        >Fullname: {{customer.name.first_name}} {{customer.name.middle_name}} {{customer.name.last_name}}</p>
                       </a-col>
-                      <a-col :span="12"><p :style="pStyle">Membership: {{customer.membership}}</p>
+                      <a-col :span="12">
+                        <p :style="pStyle">Membership: {{customer.membership}}</p>
                         <p :style="pStyle"></p>
                       </a-col>
                       <!-- <a-col :span="8">
@@ -125,12 +128,11 @@
                       </a-col>
                       <a-col :span="8">
                         <p :style="pStyle">Lastname: {{customer.name.last_name}}</p>
-                      </a-col> -->
+                      </a-col>-->
                     </a-row>
 
                     <a-row>
                       <a-col :span="12">
-                        
                         <p :style="pStyle">Gender: {{customer.gender}}</p>
                       </a-col>
                       <a-col :span="12">
@@ -143,9 +145,7 @@
                         <p :style="pStyle">Status: {{customer.status}}</p>
                       </a-col>
 
-                      <a-col :span="8">
-                        
-                      </a-col>
+                      <a-col :span="8"></a-col>
                     </a-row>
 
                     <a-row>
@@ -293,6 +293,7 @@ export default {
             }
           }
         },
+
         {
           title: "Lastname",
           dataIndex: "name.last_name",
@@ -312,13 +313,27 @@ export default {
             }
           }
         },
+
         {
           title: "Courses",
           dataIndex: "programmes",
           key: "programmes",
           scopedSlots: {
-            customRender: "customRender"
+            customRender: "customRender",
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon"
           },
+
+          onFilter: (value, record) =>
+            record.name.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
+            }
+          },
+
           filters: [
             { text: "DOJO", value: "dojo" },
             { text: "BOXING", value: "boxing" },
@@ -334,6 +349,7 @@ export default {
           ],
           width: "10%"
         },
+
         {
           title: "Membership",
           dataIndex: "membership",
