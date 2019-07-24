@@ -150,7 +150,7 @@
 
                     <a-row>
                       <a-col :span="24">
-                        <p :style="pStyle">Birthday: {{customer.birthday}}</p>
+                        <p :style="pStyle">Birthday: {{Dateformat(customer.birthday)}}</p>
                       </a-col>
                     </a-row>
                     <a-row>
