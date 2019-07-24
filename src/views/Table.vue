@@ -167,15 +167,15 @@
                     <!-- <p :style="pStyle">Type: {{customer.type}}</p> -->
                     <a-row>
                       <a-col :span="24">
-                        <p :style="pStyle">Valid Until: {{customer.validity_until}}</p>
+                        <p :style="pStyle">Valid Until: {{formatDate(customer.validity_until)}}</p>
                       </a-col>
                     </a-row>
                     <a-row>
                       <a-col :span="24">
-                        <p :style="pStyle">Last Time-in: {{customer.last_login}}</p>
+                        <p :style="pStyle">Last Time-in: {{formatDate(customer.last_login)}}</p>
                       </a-col>
                       <a-col :span="24">
-                        <p :style="pStyle">Time-in: {{customer.time_in}}</p>
+                        <p :style="pStyle">Time-in: {{formatDate(customer.time_in)}}</p>
                       </a-col>
                     </a-row>
                   </a-card>
