@@ -111,14 +111,27 @@
                     <br />
 
                     <a-row>
-                      <a-col :span="8">
-                        <p :style="pStyle">Firstname: {{customer.name.first_name}}</p>
+                      <a-col :span="12">
+                        <p :style="pStyle">Fullname: {{customer.name.first_name}} {{customer.name.middle_name}} {{customer.name.last_name}}</p>
                       </a-col>
-                      <a-col :span="8">
+                      <a-col :span="12"><p :style="pStyle">Membership: {{customer.membership}}</p>
+                        <p :style="pStyle"></p>
+                      </a-col>
+                      <!-- <a-col :span="8">
                         <p :style="pStyle">Middlename: {{customer.name.middle_name}}</p>
                       </a-col>
                       <a-col :span="8">
                         <p :style="pStyle">Lastname: {{customer.name.last_name}}</p>
+                      </a-col> -->
+                    </a-row>
+
+                    <a-row>
+                      <a-col :span="12">
+                        
+                        <p :style="pStyle">Gender: {{customer.gender}}</p>
+                      </a-col>
+                      <a-col :span="12">
+                        <p :style="pStyle">Course: {{customer.programmes}}</p>
                       </a-col>
                     </a-row>
 
@@ -126,18 +139,9 @@
                       <a-col :span="8">
                         <p :style="pStyle">Status: {{customer.status}}</p>
                       </a-col>
-                      <a-col :span="16">
-                        <p :style="pStyle">Membership: {{customer.membership}}</p>
-                      </a-col>
-                    </a-row>
-
-                    <a-row>
-                      <a-col :span="8">
-                        <p :style="pStyle">Gender: {{customer.gender}}</p>
-                      </a-col>
 
                       <a-col :span="8">
-                        <p :style="pStyle">Course: {{customer.programmes}}</p>
+                        
                       </a-col>
                     </a-row>
 
