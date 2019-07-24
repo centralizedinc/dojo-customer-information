@@ -27,7 +27,7 @@
               <a-input v-model="customer.contact" placeholder="Please input your Phone Number" />
             </a-form-item>
             <a-form-item
-              label="Your Weight(kg)"
+              label="Your Weight(lbs)"
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
             >
