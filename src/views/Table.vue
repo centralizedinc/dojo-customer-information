@@ -16,7 +16,10 @@
           <br />
           <a-table :dataSource="data" :columns="columns" bordered size="middle">
             <template slot="last_login" slot-scope="last_login">{{formatDate(last_login)}}</template>
-            <template slot="validity_until" slot-scope="validity_until">{{formatDate(validity_until)}}</template>
+            <template
+              slot="validity_until"
+              slot-scope="validity_until"
+            >{{formatDate(validity_until)}}</template>
             <template slot="time_in" slot-scope="time_in">{{formatDate(time_in)}}</template>
             <div
               slot="filterDropdown"
@@ -384,7 +387,7 @@ export default {
           dataIndex: "validity_until",
           key: "validity_until",
           scopedSlots: {
-            customRender: "customRender"
+            customRender: "validity_until"
           },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
@@ -401,7 +404,7 @@ export default {
           dataIndex: "last_login",
           key: "last_login",
           scopedSlots: {
-            customRender: "customRender"
+            customRender: "last_login"
           },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
@@ -418,7 +421,7 @@ export default {
           dataIndex: "time_in",
           key: "time_in",
           scopedSlots: {
-            customRender: "customRender"
+            customRender: "time_in"
           },
           onFilter: (value, record) =>
             record.address.toLowerCase().includes(value.toLowerCase()),
@@ -562,10 +565,16 @@ export default {
       var format = type
         ? type
         : {
-            hour12: true,
-            year: "numeric",
+            day: "numeric",
             month: "long",
-            day: "2-digit"
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+            // hour12: true,
+            // year: "numeric",
+            // month: "numeric",
+            // hour: "2-digit",
+            // minute: "2-digit"
           };
       var dt = new Date(date).toLocaleString("en-US", format);
       return dt;
