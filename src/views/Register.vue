@@ -28,7 +28,7 @@
               <a-input v-model="customer.contact" placeholder="Please input your Phone Number" />
             </a-form-item>
             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.membership" placeholder="Please select membership">
+              <a-select v-model="customer.membership" placeholder="Please input your Lastname" >
                 <a-select-option value="non_member">Non-Member</a-select-option>
                 <a-select-option value="member">Member</a-select-option>
                 <a-select-option value="walkin">Walkin</a-select-option>
