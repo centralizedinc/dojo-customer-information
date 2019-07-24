@@ -94,7 +94,7 @@
                     <a-col :span="4">
                       <a-avatar
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8YTbzfa8-0pOEGrEcZhXCLrbHE0BgNwDMM90vw1MzhTUXM5Kc"
-                        shape="circle"
+                        shape="square"
                         class="avatar"
                       />
                     </a-col>
@@ -112,14 +112,68 @@
                     <br />
                     <br />
                     <br />
-                    <p :style="[pStyle, pStyle2]">Fullname: {{customer.name}}</p>
-                    <p :style="pStyle">Address: {{customer.address}}</p>
-                    <p :style="pStyle">Mobile Number: {{customer.phone}}</p>
-                    <p :style="pStyle">Type: {{customer.type}}</p>
-                    <p :style="pStyle">Gender: {{customer.gender}}</p>
-                    <p :style="pStyle">Status: {{customer.status}}</p>
-                    <p :style="pStyle">Email Address: {{customer.email}}</p>
-                    <p :style="pStyle">Birthday: {{customer.birthday}}</p>
+
+                    <a-row>
+                      <a-col :span="8">
+                        <p :style="pStyle">Firstname: {{customer.name.first_name}}</p>
+                      </a-col>
+                      <a-col :span="8">
+                        <p :style="pStyle">Middlename: {{customer.name.middle_name}}</p>
+                      </a-col>
+                      <a-col :span="8">
+                        <p :style="pStyle">Lastname: {{customer.name.last_name}}</p>
+                      </a-col>
+                    </a-row>
+
+                    <a-row>
+                      <a-col :span="8">
+                        <p :style="pStyle">Status: {{customer.status}}</p>
+                      </a-col>
+                      <a-col :span="16">
+                        <p :style="pStyle">Membership: {{customer.membership}}</p>
+                      </a-col>
+                    </a-row>
+
+                    <a-row>
+                      <a-col :span="8">
+                        <p :style="pStyle">Gender: {{customer.gender}}</p>
+                      </a-col>
+
+                      <a-col :span="8">
+                        <p :style="pStyle">Course: {{customer.programmes}}</p>
+                      </a-col>
+                    </a-row>
+
+                    <a-row>
+                      <a-col :span="24">
+                        <p :style="pStyle">Birthday: {{customer.birthday}}</p>
+                      </a-col>
+                    </a-row>
+                    <a-row>
+                      <a-col :span="24">
+                        <p :style="pStyle">Address: {{customer.address}}</p>
+                      </a-col>
+                    </a-row>
+                    <a-row>
+                      <a-col :span="24">
+                        <p :style="pStyle">Email Address: {{customer.email}}</p>
+                      </a-col>
+                    </a-row>
+
+                    <!-- <p :style="pStyle">Type: {{customer.type}}</p> -->
+                    <a-row>
+                      <a-col :span="24">
+                        <p :style="pStyle">Valid Until: {{customer.validity_until}}</p>
+                      </a-col>
+                    </a-row>
+                    <a-row>
+                      <a-col :span="24">
+                        <p :style="pStyle">Last Time-in: {{customer.last_login}}</p>
+                      </a-col>
+                      <a-col :span="24">
+                        <p :style="pStyle">Time-in: {{customer.time_in}}</p>
+                      </a-col>
+                    </a-row>
                   </a-card>
                   <!-- <img :src="dojo" width="300" height="200"/> -->
                 </a-drawer>
@@ -143,11 +197,11 @@ import axios from "axios";
 //     type: "Dojo",
 //     remain: "1/10",
 //     valid: "July 12, 2019",
-//     login: "10:00AM"
+//     login: "10:00AM"last_login
 //   },
 //   {
 //     key: "2",
-//     name: "Joe Black",
+//     name: "Joe Blacklast_login
 //     type: "Boxing",
 //     remain: "1/10",
 //     valid: "July 1, 2019",
@@ -175,7 +229,11 @@ export default {
   data() {
     return {
       dojo: dojo,
-      customer: {},
+      customer: {
+        name: { first_name: "", middle_name: "", last_name: "" }
+      },
+      validity_until: "",
+
       visible: false,
       size: "large",
       data: [],
@@ -211,6 +269,7 @@ export default {
             }
           }
         },
+
         {
           title: "Middlename",
           dataIndex: "name.middle_name",
