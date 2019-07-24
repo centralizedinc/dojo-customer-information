@@ -59,6 +59,8 @@
               <a-select v-model="customer.status" placeholder="Please select status">
                 <a-select-option value="single">Single</a-select-option>
                 <a-select-option value="married">Married</a-select-option>
+                <a-select-option value="divorced">Divorced</a-select-option>
+                <a-select-option value="widowed">Widowed</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item
