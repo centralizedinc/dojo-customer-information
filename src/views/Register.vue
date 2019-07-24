@@ -1,8 +1,7 @@
 <template>
   <div class="register" id="components-form-demo-vuex">
     <a-layout>
-      <a-layout-header class="test">
-        DOJO SUPREMO   “UNLEASHED YOUR GREATNESS”</a-layout-header> 
+      <a-layout-header class="test">DOJO SUPREMO “UNLEASHED YOUR GREATNESS”</a-layout-header>
       <a-layout-content>
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
@@ -27,8 +26,22 @@
             <a-form-item label="Phone number" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input v-model="customer.contact" placeholder="Please input your Phone Number" />
             </a-form-item>
+            <a-form-item
+              label="Your Weight(kg)"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 12 }"
+            >
+              <a-input v-model="customer.weight" placeholder="Please input your Weight" />
+            </a-form-item>
+            <a-form-item
+              label="Your Height(cm)"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 12 }"
+            >
+              <a-input v-model="customer.height" placeholder="Please input your Height" />
+            </a-form-item>
             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.membership" placeholder="Please input your Lastname" >
+              <a-select v-model="customer.membership" placeholder="Please input your Lastname">
                 <a-select-option value="non_member">Non-Member</a-select-option>
                 <a-select-option value="member">Member</a-select-option>
                 <a-select-option value="walkin">Walkin</a-select-option>
@@ -102,6 +115,8 @@ export default {
         },
         address: "",
         contact: "",
+        weight: "",
+        height: "",
         gender: "",
         status: "",
         email: "",
@@ -265,11 +280,10 @@ export default {
   line-height: 60;
   background: rgba(34, 8, 0, 0.2);
 }
-.test{
-  color: white !important; 
+.test {
+  color: white !important;
   font-size: 40px !important;
   text-align: center !important;
   font-style: oblique !important;
-  
 }
 </style>
