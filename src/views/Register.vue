@@ -2,7 +2,10 @@
   <div class="register" id="components-form-demo-vuex">
     <a-layout>
       <a-layout-header class="test">
-        DOJO SUPREMO   “UNLEASHED YOUR GREATNESS”</a-layout-header> 
+
+        DOJO SUPREMO   </a-layout-header> 
+        <a-layout-header class="test1"> “UNLEASHED YOUR GREATNESS”
+          </a-layout-header> 
       <a-layout-content>
         <a-card>
           <a-form :form="form" @submit="handleSubmit">
@@ -251,7 +254,7 @@ export default {
 #components-form-demo-vuex .language-bash {
   max-width: 400px;
   border-radius: 6px;
-  margin-top: 24px;
+  margin-top: 24px; 
 }
 #components-form-demo-vuex .ant-layout-content {
   background: rgb(235, 204, 156);
@@ -265,9 +268,21 @@ export default {
 }
 .test{
   color: white !important; 
-  font-size: 40px !important;
+  font-size: 50px !important;
   text-align: center !important;
-  font-style: oblique !important;
+  font-style: impact !important;
   
+  background: #000000f6 !important;
+}
+
+.test1 {
+    background: #830000f6 !important;
+    padding: 0 50px;
+    height: 50px;
+    line-height: 64px;
+    color: white !important; 
+    font-size: 50px !important;
+  text-align: center !important;
+  font-style: impact !important;
 }
 </style>
