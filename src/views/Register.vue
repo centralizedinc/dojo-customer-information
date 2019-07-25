@@ -14,7 +14,7 @@
       <div :style="{ padding: '24px', minHeight: '380px' }">
         <a-card>
           <br />
-          <a-form :form="form">
+          <a-form>
             <a-form-item label="Firstname" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-input
                 placeholder="Please input your Firstname"
@@ -116,14 +116,13 @@ export default {
   data() {
     return {
       // dojo: dojo,
-      formLayout: "horizontal",
-      form: this.$form.createForm(this),
       customer: {
         name: {
           first_name: "",
           middle_name: "",
           last_name: ""
         },
+        membership_no:"",
         address: "",
         contact: "",
         weight: "",
