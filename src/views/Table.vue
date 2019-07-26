@@ -22,7 +22,7 @@
           >Add Customer</a-button>
         </div>
         <br />
-        <a-table :dataSource="data" :columns="columns" bordered size="middle">
+        <a-table :dataSource="customers" :columns="columns" bordered size="middle">
           <template slot="last_login" slot-scope="last_login">{{formatDate(last_login)}}</template>
           <template slot="validity_until" slot-scope="validity_until">{{Dateformat(validity_until)}}</template>
           <template slot="time_in" slot-scope="time_in">{{formatDate(time_in)}}</template>
@@ -484,9 +484,11 @@ export default {
 
       //invoke apis
       axios.get("https://dojo-cis.herokuapp.com").then(result => {
-        console.log(JSON.stringify(result.data.model));
-        this.data = result.data.model;
+        console.log('INIT ::: ',JSON.stringify(result.data.model));
+        // this.data = result.data.model;
+        this.$store.commit('SET_CUSTOMERS', result.data.model)
       });
+
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -621,6 +623,10 @@ export default {
     }
   },
   computed: {
+    customers(){
+      console.log(this.$store.state.customers)
+      return this.$store.state.customers
+    },
     items() {
       return this.$store.state.time_in;
     },

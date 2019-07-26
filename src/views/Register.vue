@@ -235,7 +235,8 @@ export default {
       axios
         .post("https://dojo-cis.herokuapp.com", this.customer)
         .then(result => {
-          console.log("RESULT: ", JSON.stringify(result));
+          console.log(':::', JSON.stringify(result))
+          this.$store.commit('ADD_CUSTOMER', result.data.model)
         });
 
       console.log("Customer Details: " + JSON.stringify(this.customer));
