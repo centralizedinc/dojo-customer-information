@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="register" id="components-form-demo-vuex">
-    <a-layout>
-      <a-layout-header class="test">
-
-        DOJO SUPREMO   </a-layout-header> 
-        <a-layout-header class="test1"> “UNLEASHED YOUR GREATNESS”
-          </a-layout-header> 
-      <a-layout-content>
-=======
   <a-layout id="customer-info">
     <a-layout-header :style="{ width: '100%' }">
       <div class="logo" />
@@ -22,7 +12,6 @@
         style="fontSize: 24px;color: rgba(0, 0, 0, 0.85); marginBottom: 16px;fontWeight: 500"
       >Customer Information</p>
       <div :style="{ padding: '24px', minHeight: '380px' }">
->>>>>>> 35e9a21f0cbc91d833128b84aff5ae621d103d8c
         <a-card>
           <br />
           <a-form>
