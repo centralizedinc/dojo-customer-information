@@ -297,7 +297,6 @@ export default {
             filterDropdown: "filterDropdown",
             filterIcon: "filterIcon"
           },
-
           onFilter: (value, record) =>
             record.name.toLowerCase().includes(value.toLowerCase()),
           onFilterDropdownVisibleChange: visible => {
@@ -306,22 +305,7 @@ export default {
                 this.searchInput.focus();
               }, 0);
             }
-          },
-
-          filters: [
-            { text: "DOJO", value: "dojo" },
-            { text: "BOXING", value: "boxing" },
-            { text: "IWAMA AIKIDO", value: "aikido" },
-            { text: "ARNIS", value: "arnis" },
-            { text: "BRAZILIAN LUTA LIVRE", value: "luta_livre" },
-            { text: "MUAY THAI", value: "muay_thai" },
-            { text: "MIXED MARTIAL ARTS", value: "martial_arts" },
-            { text: "TAEKWONDO", value: "taekwondo" },
-            { text: "AEROBICS", value: "aerobics" },
-            { text: "YOGA", value: "yoga" },
-            { text: "ZUMBA", value: "zumba" }
-          ],
-          width: "10%"
+          }
         },
         {
           title: "Membership ID",
@@ -484,11 +468,10 @@ export default {
 
       //invoke apis
       axios.get("https://dojo-cis.herokuapp.com").then(result => {
-        console.log('INIT ::: ',JSON.stringify(result.data.model));
+        console.log("INIT ::: ", JSON.stringify(result.data.model));
         // this.data = result.data.model;
-        this.$store.commit('SET_CUSTOMERS', result.data.model)
+        this.$store.commit("SET_CUSTOMERS", result.data.model);
       });
-
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -623,9 +606,9 @@ export default {
     }
   },
   computed: {
-    customers(){
-      console.log(this.$store.state.customers)
-      return this.$store.state.customers
+    customers() {
+      console.log(this.$store.state.customers);
+      return this.$store.state.customers;
     },
     items() {
       return this.$store.state.time_in;
