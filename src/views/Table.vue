@@ -125,7 +125,7 @@
                       >Fullname: {{customer.name.first_name}} {{customer.name.middle_name}} {{customer.name.last_name}}</p>
                     </a-col>
                     <a-col :span="12">
-                      <p :style="pStyle">Membership: {{customer.membership}}</p>
+                      <p :style="pStyle">Membership ID: {{customer.membership_no}}</p>
                       <p :style="pStyle"></p>
                     </a-col>
                     <!-- <a-col :span="8">
@@ -135,13 +135,18 @@
                         <p :style="pStyle">Lastname: {{customer.name.last_name}}</p>
                     </a-col>-->
                   </a-row>
-
                   <a-row>
                     <a-col :span="12">
-                      <p :style="pStyle">Gender: {{customer.gender}}</p>
+                      <p :style="pStyle">Membership: {{customer.membership}}</p>
+                      <p :style="pStyle"></p>
                     </a-col>
                     <a-col :span="12">
                       <p :style="pStyle">Course: {{customer.programmes}}</p>
+                    </a-col>
+                  </a-row>
+                  <a-row>
+                    <a-col :span="12">
+                      <p :style="pStyle">Gender: {{customer.gender}}</p>
                     </a-col>
                   </a-row>
 
@@ -203,7 +208,7 @@ export default {
       dojo: dojo,
       customer: {
         name: { first_name: "", middle_name: "", last_name: "" },
-        membership_no:"",
+        membership_no: ""
       },
       validity_until: "",
 
@@ -323,7 +328,9 @@ export default {
           dataIndex: "membership_no",
           key: "membership_no",
           scopedSlots: {
-            customRender: "customRender"
+            customRender: "customRender",
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon"
           },
           onFilter: (value, record) =>
             record.age.toLowerCase().includes(value.toLowerCase()),
@@ -524,12 +531,35 @@ export default {
       record.last_login = record.time_in;
       record.time_in = new Date();
       record.session.remaining_session--;
-      console.log(record.session.remaining_session);
-      axios
-        .post("https://dojo-cis.herokuapp.com/" + record._id, record)
-        .then(result => {
-          console.log("RESULT:::", JSON.stringify(result));
+
+      if (record.session.remaining_session < 0) {
+        record.session.remaining_session = 0;
+        this.$notification.warning({
+          message: "Login Warning!",
+          description: "No more Remaining Session",
+          style: {
+            width: "600px",
+            marginLeft: `${335 - 600}px`
+          }
         });
+      } else {
+        // this.$$notification.success("This is a Login of success");
+        console.log(record.session.remaining_session);
+        var _self = this;
+        axios
+          .post("https://dojo-cis.herokuapp.com/" + record._id, record)
+          .then(result => {
+            console.log("RESULT:::", JSON.stringify(result));
+            _self.$notification.success({
+              message: "Login Success",
+              description: "Login Successful!",
+              style: {
+                width: "600px",
+                marginLeft: `${335 - 600}px`
+              }
+            });
+          });
+      }
     },
     cancel(key) {
       const newData = [...this.data];

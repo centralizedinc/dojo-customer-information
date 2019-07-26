@@ -130,7 +130,7 @@ export default {
         gender: "",
         status: "",
         email: "",
-        birthday: "",
+        birthday: null,
         programmes: "",
         membership: "",
         time_in: "",
