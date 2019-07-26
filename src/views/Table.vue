@@ -229,6 +229,25 @@ export default {
       },
       columns: [
         {
+          title: "Membership ID",
+          dataIndex: "membership_no",
+          key: "membership_no",
+          scopedSlots: {
+            customRender: "customRender",
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon"
+          },
+          onFilter: (value, record) =>
+            record.age.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              });
+            }
+          }
+        },
+        {
           title: "Firstname",
           dataIndex: "name.first_name",
           key: "name.first_name",
@@ -304,25 +323,6 @@ export default {
               setTimeout(() => {
                 this.searchInput.focus();
               }, 0);
-            }
-          }
-        },
-        {
-          title: "Membership ID",
-          dataIndex: "membership_no",
-          key: "membership_no",
-          scopedSlots: {
-            customRender: "customRender",
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon"
-          },
-          onFilter: (value, record) =>
-            record.age.toLowerCase().includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus();
-              });
             }
           }
         },
