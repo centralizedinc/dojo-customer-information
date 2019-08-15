@@ -193,6 +193,10 @@
               </a-drawer>
             </div>
           </template>
+          <template slot="fullname" slot-scope="text">
+            <!-- {{index}} - {{record}} - {{text}} -->
+            {{text.first_name}} {{text.last_name}}
+          </template>
         </a-table>
       </div>
     </a-layout-content>
@@ -248,13 +252,13 @@ export default {
           }
         },
         {
-          title: "Firstname",
-          dataIndex: "name.first_name",
-          key: "name.first_name",
+          title: "Fullname",
+          dataIndex: "name",
+          key: "name",
           scopedSlots: {
             filterDropdown: "filterDropdown",
             filterIcon: "filterIcon",
-            customRender: "customRender"
+            customRender: "fullname"
           },
           onFilter: (value, record) =>
             record.name.toLowerCase().includes(value.toLowerCase()),
@@ -268,9 +272,9 @@ export default {
         },
 
         {
-          title: "Middlename",
-          dataIndex: "name.middle_name",
-          key: "name.middle_name",
+          title: "Package Type",
+          dataIndex: "package",
+          key: "package",
           scopedSlots: {
             filterDropdown: "filterDropdown",
             filterIcon: "filterIcon",
@@ -286,27 +290,6 @@ export default {
             }
           }
         },
-
-        {
-          title: "Lastname",
-          dataIndex: "name.last_name",
-          key: "name.last_name",
-          scopedSlots: {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
-            customRender: "customRender"
-          },
-          onFilter: (value, record) =>
-            record.name.toLowerCase().includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus();
-              }, 0);
-            }
-          }
-        },
-
         {
           title: "Courses",
           dataIndex: "programmes",
@@ -452,6 +435,23 @@ export default {
               setTimeout(() => {
                 this.searchInput.focus();
               });
+            }
+          }
+        },
+        {
+          title: "Total Cost",
+          dataIndex: "total_cost",
+          key: "total_cost",
+          scopedSlots: {
+            customRender: "customRender"
+          },
+          onFilter: (value, record) =>
+            record.name.toLowerCase().includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
             }
           }
         }

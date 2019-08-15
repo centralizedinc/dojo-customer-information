@@ -51,39 +51,44 @@
               <a-input v-model="customer.height" placeholder="Please input your Height" />
             </a-form-item>
             <a-form-item label="Membership" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.membership" placeholder="Please input your Lastname">
-                <a-select-option value="Non-Member">Non-Member</a-select-option>
-                <a-select-option value="Member">Member</a-select-option>
-                <a-select-option value="Walkin">Walkin</a-select-option>
+              <a-select v-model="customer.membership" placeholder="Please select your membership">
+                <a-select-option value="non_member">Non-Member</a-select-option>
+                <a-select-option value="member">Member</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Programmes" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-              <a-select v-model="customer.programmes" placeholder="Please select programmes">
-                <a-select-option value="DOJO">DOJO</a-select-option>
-                <a-select-option value="BOXING">BOXING</a-select-option>
-                <a-select-option value="IWAMA AIKIDO">IWAMA AIKIDO</a-select-option>
-                <a-select-option value="ARNIS">ARNIS</a-select-option>
-                <a-select-option value="BRAZILIAN LUTA LIVRE">BRAZILIAN LUTA LIVRE</a-select-option>
-                <a-select-option value="MUAY THAI">MUAY THAI</a-select-option>
-                <a-select-option value="MIXED MARTIAL ARTS">MIXED MARTIAL ARTS</a-select-option>
-                <a-select-option value="TAEKWONDO">TAEKWONDO</a-select-option>
-                <a-select-option value="AEROBICS">AEROBICS</a-select-option>
-                <a-select-option value="YOGA">YOGA</a-select-option>c
-                <a-select-option value="ZUMBA">ZUMBA</a-select-option>
+              <a-select
+                mode="multiple"
+                placeholder="Please select programmes"
+                :value="selectedItems"
+                @change="handleChange"
+                style="width: 100%"
+              >
+                <a-select-option v-for="item in filteredOptions" :key="item" :value="item">{{item}}</a-select-option>
               </a-select>
+            </a-form-item>
+            <a-form-item label="Package Type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-select v-model="customer.package" placeholder="Please select Package Type">
+                <a-select-option value="one_session">(1)One Session</a-select-option>
+                <a-select-option value="ten_session">(10)Ten Session</a-select-option>
+                <a-select-option value="thirty">(30)Thirty Session</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="Total Amount" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+              <a-input defaultValue="3,500" />
             </a-form-item>
             <a-form-item label="Gender" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.gender" placeholder="Please select gender">
-                <a-select-option value="Male">Male</a-select-option>
-                <a-select-option value="Female">Female</a-select-option>
+                <a-select-option value="male">Male</a-select-option>
+                <a-select-option value="female">Female</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item label="Status" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
               <a-select v-model="customer.status" placeholder="Please select status">
-                <a-select-option value="Single">Single</a-select-option>
-                <a-select-option value="Married">Married</a-select-option>
-                <a-select-option value="Divorced">Divorced</a-select-option>
-                <a-select-option value="Widowed">Widowed</a-select-option>
+                <a-select-option value="single">Single</a-select-option>
+                <a-select-option value="married">Married</a-select-option>
+                <a-select-option value="divorced">Divorced</a-select-option>
+                <a-select-option value="widowed">Widowed</a-select-option>
               </a-select>
             </a-form-item>
             <a-form-item
@@ -112,17 +117,31 @@
 <script>
 import axios from "axios";
 // import dojo from "../assets/dojo.png"
+const OPTIONS = [
+  "JUDO",
+  "BOXING",
+  "IWAMA AIKIDO",
+  "ARNIS",
+  "BRAZILIAN LUTA LIVRE",
+  "MUAY THAI",
+  "MIXED MARTIAL ARTS",
+  "TAEKWONDO",
+  "AEROBICS",
+  "YOGA",
+  "ZUMBA"
+];
 export default {
   data() {
     return {
       // dojo: dojo,
+      selectedItems: [],
       customer: {
         name: {
           first_name: "",
           middle_name: "",
           last_name: ""
         },
-        membership_no:"",
+        membership_no: "",
         address: "",
         contact: "",
         weight: "",
@@ -131,7 +150,6 @@ export default {
         status: "",
         email: "",
         birthday: null,
-        programmes: "",
         membership: "",
         time_in: "",
         time_out: "",
@@ -190,7 +208,15 @@ export default {
       }
     });
   },
+  computed: {
+    filteredOptions() {
+      return OPTIONS.filter(o => !this.selectedItems.includes(o));
+    }
+  },
   methods: {
+    handleChange(selectedItems) {
+      this.selectedItems = selectedItems;
+    },
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, fieldsValue) => {
@@ -235,8 +261,8 @@ export default {
       axios
         .post("https://dojo-cis.herokuapp.com", this.customer)
         .then(result => {
-          console.log(':::', JSON.stringify(result))
-          this.$store.commit('ADD_CUSTOMER', result.data.model)
+          console.log(":::", JSON.stringify(result));
+          this.$store.commit("ADD_CUSTOMER", result.data.model);
         });
 
       console.log("Customer Details: " + JSON.stringify(this.customer));
